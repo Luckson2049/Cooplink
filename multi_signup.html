@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-System Login | Tech Hub</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='multi_login.css') }}">
+</head>
+<body>
+
+
+<!-- Left Branding Panel 
+<div class="login-left">
+  <h1>Cooplink</h1>
+  <p>Manage your systems effortlessly</p>
+  <div class="branding-icons">
+    <!-- Optional small logos or patterns 
+  </div>
+</div>
+-->
+<!-- Right Sign-Up Panel -->
+<div class="login-right">
+  <form action="{{ url_for('sign_up') }}" method="POST" class="login-form">
+    <h2>Create Account</h2>
+
+    {% if message %}
+      <p class="message">{{ message }}</p>
+    {% endif %}
+
+    <!-- System Selector -->
+    <label for="system">Select System</label>
+    <select name="system" id="system" required>
+      <option value="">-- Choose your system --</option>
+      <option value="campus_suite">Campus Suite</option>
+      <option value="cooplink">CoopLink</option>
+      <option value="orphanage_webapp">Orphanage WebApp</option>
+    </select>
+
+    <!-- User Information -->
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" placeholder="Your full name" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="••••••••" required>
+
+    <label for="confirm_password">Confirm Password</label>
+    <input type="password" id="confirm_password" name="confirm_password" placeholder="••••••••" required>
+
+    <div class="remember-me">
+      <input type="checkbox" id="terms" name="terms" required>
+      <label for="terms">I agree to the Terms & Conditions</label>
+    </div>
+
+    <button type="submit" class="login-btn">Sign Up</button>
+
+    <p class="signup-link">
+      Already have an account? <a href="{{ url_for('login') }}">Log In</a>
+    </p>
+  </form>
+</div>

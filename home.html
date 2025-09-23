@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoopLink - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('projects') }}">Projects</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>CoopLink</h1>
+        <p>Connecting, managing, and powering all projects, online and offline.</p>
+    </section>
+
+    <!-- About CoopLink -->
+    <section class="about" >
+        <h2>About CoopLink</h2>
+        <p>CoopLink is the central management system that powers multiple projects, ensuring smooth operations and connectivity. 
+        It serves as the backbone for online and offline initiatives, offering tools for organization, monitoring, and growth.</p>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="vision" >
+        <div >
+            <h2>Our Vision</h2>
+            <p>To create a unified ecosystem where all projects, technical or non-technical, are seamlessly connected, managed, and recognized under a single trusted platform: CoopLink.</p>
+        </div>
+    </section>
+
+    <!-- Accomplishments Section -->
+    <section class="accomplishments" >
+        <div>
+            <h2>Accomplished</h2>
+            <ul>
+                <li>Developed the CoopLink framework for project management.</li>
+                <li>Integrated branding across multiple ongoing projects.</li>
+                <li>Designed a central login system with role/project selection.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Future Plans Section -->
+    <section class="future" >
+        <div >
+            <h2>Will Accomplish</h2>
+            <ul>
+                <li>Full project management dashboard for monitoring all projects.</li>
+                <li>Centralized data analytics and reporting across platforms.</li>
+                <li>Seamless cross-project user management and role-based access.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Projects Highlight Section -->
+    <section class="projects" >
+        <div >
+            <h2>Highlighted Projects</h2>
+            <div >
+                <!-- Example Project Card -->
+                <div >
+                    <h3>IoT Poultry Management</h3>
+                    <p>Automates poultry monitoring, feeding, and health tracking using IoT devices.</p>
+                </div>
+
+                <div >
+                    <h3>Campus Suite</h3>
+                    <p>Student utility platform providing boarding search, printing, events, and club management.</p>
+                </div>
+
+                <div>
+                    <h3>Orphanage Support Platform</h3>
+                    <p>Connecting volunteers, managing donations, and providing educational resources online.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <section class="staff">
+        <div class="founder"></div>
+    </section>
+    
+    
+    
+    
+
+    <!-- Footer -->
+    <footer>
+         <div class="social">
+    <h3>Follow Us</h3>
+    <a href="https://facebook.com" target="_blank">Facebook</a> |
+    <a href="https://twitter.com" target="_blank">Twitter</a> |
+    <a href="https://instagram.com" target="_blank">Instagram</a>
+  </div>
+
+  <div class="inquiries">
+    <h3>Inquiries</h3>
+    <p>Email: <a href="mailto:support@cooplink.com">support@cooplink.com</a></p>
+    <p>Phone: +260 123 456 789</p>
+  </div>
+        <p>Powered by <strong>CoopLink</strong></p>
+        &copy; 2025 CoopLink. All rights reserved.
+    </footer>
+
+</body>
+</html>

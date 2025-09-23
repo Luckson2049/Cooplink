@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log in Attempts</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='System_monitoring.css') }}">
+</head>
+<body>
+<body>
+  <h1>🔐 Login Attempts</h1>
+  <table border="1">
+    <tr>
+      <th>User/Email</th>
+      <th>IP Address</th>
+      <th>Time</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td>test@cooplink.com</td>
+      <td>192.168.0.5</td>
+      <td>2025-09-09 16:10</td>
+      <td>✅ Success</td>
+    </tr>
+    <tr>
+      <td>hacker@unknown.com</td>
+      <td>203.45.66.12</td>
+      <td>2025-09-09 16:11</td>
+      <td>❌ Failed</td>
+    </tr>
+  </table>
+</body>
+</html>

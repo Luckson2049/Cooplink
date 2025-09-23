@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Active Sessions</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='System_monitoring.css') }}">
+</head>
+<body>
+  <h1>🟢 Active Sessions</h1>
+  <table border="1">
+    <tr>
+      <th>User</th>
+      <th>IP Address</th>
+      <th>Login Time</th>
+      <th>Last Activity</th>
+      <th>Action</th>
+    </tr>
+    <!-- Later this will be filled with DB data -->
+    <tr>
+      <td>example_user</td>
+      <td>192.168.0.1</td>
+      <td>2025-09-09 15:00</td>
+      <td>2025-09-09 15:45</td>
+      <td><button>Force Logout</button></td>
+    </tr>
+  </table>
+</body>
+</html>

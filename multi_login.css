@@ -1,0 +1,171 @@
+
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Body */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0d1b2a, #1b263b);
+  color: #fff;
+}
+
+/* Responsive for small screens */
+@media (max-width: 600px) {
+    .nav-links {
+        flex-wrap: wrap;           /* items wrap to next line */
+        justify-content: flex-start; /* keep left alignment */
+    }
+    
+    /* Responsive for large screens */
+@media (min-width: 1080px) {
+    .nav-links {
+        flex-wrap: wrap;           
+        justify-content: center;  /* center horizontally */
+        align-items: center;      /* center vertically */
+    }
+}
+
+
+
+/* Wrapper */
+.login-wrapper {
+  display: flex;
+  width: 90%;
+  max-width: 900px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Left Panel */
+.login-left {
+  flex: 1;
+  background: #1b263b;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-left h1 {
+  font-size: 2.5em;
+  color: #00ffc6;
+  margin-bottom: 10px;
+}
+
+.login-left p {
+  font-size: 1.1em;
+  color: #a8dadc;
+}
+
+/* Right Panel */
+.login-right {
+  flex: 1;
+  background: #f5f6fa;
+  color: #1b263b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 320px;
+}
+
+.login-form h2 {
+  text-align: center;
+  color: #1b263b;
+  margin-bottom: 25px;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.login-form input,
+.login-form select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* Remember Me */
+.remember-me {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 0.9em;
+}
+
+.remember-me input {
+  margin-right: 8px;
+}
+
+/* Login Button */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #00b4d8;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #0096c7;
+}
+
+/* Messages */
+.message {
+  color: red;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Sign up link */
+.signup-link {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.signup-link a {
+  color: #00b4d8;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-wrapper {
+    flex-direction: column;
+  }
+
+  .login-left, .login-right {
+    width: 100%;
+    padding: 30px;
+  }
+}

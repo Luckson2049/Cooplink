@@ -1,0 +1,106 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Responsive for small screens */
+@media (max-width: 600px) {
+    .nav-links {
+        flex-wrap: wrap;           /* items wrap to next line */
+        justify-content: flex-start; /* keep left alignment */
+    }
+    
+    /* Responsive for large screens */
+@media (min-width: 1080px) {
+    .nav-links {
+        flex-wrap: wrap;           
+        justify-content: center;  /* center horizontally */
+        align-items: center;      /* center vertically */
+    }
+}
+
+
+
+/* Navigation Bar */
+.navbar {
+    background-color: #1a2a6c;  /* deep professional blue */
+    color: #fff;
+    padding: 0.8rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: #f0c808;  /* highlight gold */
+}
+
+/* Content Area */
+.content {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Footer */
+footer {
+    background-color: #1a2a6c;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    border-top: 3px solid #f0c808; /* accent line */
+}
+
+footer p {
+    margin: 0.3rem 0;
+}
+
+footer strong {
+    color: #f0c808; /* gold highlight for CoopLink */
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}

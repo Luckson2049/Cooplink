@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Suite Admin Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='cs_admin_dashboard.css') }}">
+</head>
+<body>
+
+
+        
+  
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <div class="navbar"><img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" width="50"> Campus Suite</div>
+      <h1>Welcome, Admin <span>{{ session['username'] }}</span></h1>
+      
+        
+       </div>
+    </header>
+
+    <!-- User Management -->
+    <section id="user-management" class="dashboard-section">
+      <h2>👥 User Management</h2>
+      <p>View, add, remove users, activate/deactivate accounts, and reset passwords.</p>
+      <div class="cards">
+        <div class="card">View Users</div>
+        <div class="card">Add User</div>
+        <div class="card">Deactivate / Activate</div>
+        <div class="card">Reset Password</div>
+      </div>
+    </section>
+
+    <!-- System Monitoring -->
+    <section id="system-monitoring" class="dashboard-section">
+      <h2>🖥️ System Monitoring</h2>
+      <p>Track active sessions, login attempts, server uptime, and activity overview.</p>
+      <div class="cards">
+        <div class="card"><a href="{{url_for('active_sessions') }}">Active Sessions</a></div>
+        <div class="card"><a href="{{url_for('login_attempts') }}">Login Attempts</a></div>
+        <div class="card"><a href="{{url_for('server_health') }}">Server Healths</a></div>
+        <div class="card"><a href="{{url_for('jobs_events') }}">Jobs / Events Activity</a></div>
+      </div>
+    </section>
+
+    <!-- Analytics & Reports -->
+    <section id="analytics" class="dashboard-section">
+      <h2>📊 Analytics & Reports</h2>
+      <p>Visualize user activity, tasks, print jobs, and events.</p>
+      <div class="cards">
+        <div class="card">Users by Role</div>
+        <div class="card">Active Tasks</div>
+        <div class="card">Approved Print Jobs</div>
+        <div class="card">Events Summary</div>
+      </div>
+    </section>
+
+    <!-- Moderation Tools -->
+    <section id="moderation" class="dashboard-section">
+      <h2>⚠️ Moderation Tools</h2>
+      <p>Review flagged content and approve/reject submissions.</p>
+      <div class="cards">
+        <div class="card">Flagged Reviews</div>
+        <div class="card">Flagged Tasks</div>
+        <div class="card">Event Posts</div>
+        <div class="card">Campus Map Submissions</div>
+      </div>
+    </section>
+
+    <!-- Financial / Payout Control -->
+    <section id="finance" class="dashboard-section">
+      <h2>💰 Financial Control</h2>
+      <p>Manage commissions, withdrawals, and refunds for monetized services.</p>
+      <div class="cards">
+        <div class="card">Commission Tracking</div>
+        <div class="card">Withdrawals</div>
+        <div class="card">Refunds</div>
+      </div>
+    </section>
+
+    <!-- System Settings -->
+    <section id="settings" class="dashboard-section">
+      <h2>⚙️ System Settings</h2>
+      <p>Backup database, global messages, theme settings, and maintenance toggles.</p>
+      <div class="cards">
+        <div class="card">Backup / Restore</div>
+        <div class="card">Global Announcements</div>
+        <div class="card">Theme Settings</div>
+        <div class="card">Maintenance Mode</div>
+      </div>
+    </section>
+  <button class="logout"><a href="{{ url_for('logout') }}">log out</a></button>
+     <!-- Footer Section -->
+<footer class="footer">
+  <div class="social">
+    <h3>Follow Us</h3>
+    <a href="https://facebook.com" target="_blank">Facebook</a> |
+    <a href="https://twitter.com" target="_blank">Twitter</a> |
+    <a href="https://instagram.com" target="_blank">Instagram</a>
+  </div>
+
+  <div class="inquiries">
+    <h4>Inquiries</h4>
+    <p>Email: <a href="mailto:support@cooplink.com">support@cooplink.com</a></p>
+    <p>Phone: +260 123 456 789</p>
+  </div>
+
+    <p>Powered by <strong>CoopLink</strong></p>
+
+    &copy; 2025 Campus Suite. All rights reserved.
+  </footer>
+		  
+		
+</main>
+</body>
+</html>
