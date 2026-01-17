@@ -9,23 +9,16 @@
 <body>
 
 
-<!-- Left Branding Panel 
-<div class="login-left">
-  <h1>Cooplink</h1>
-  <p>Manage your systems effortlessly</p>
-  <div class="branding-icons">
-    <!-- Optional small logos or patterns 
-  </div>
-</div>
--->
 <!-- Right Sign-Up Panel -->
 <div class="login-right">
   <form action="{{ url_for('sign_up') }}" method="POST" class="login-form">
     <h2>Create Account</h2>
 
-    {% if message %}
-      <p class="message">{{ message }}</p>
-    {% endif %}
+     {% with message = get_flashed_messages() %}
+      {% if message %}
+        <p class="message">{{ message }}</p>
+      {% endif %}
+      {% endwith %}
 
     <!-- System Selector -->
     <label for="system">Select System</label>
