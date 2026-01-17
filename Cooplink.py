@@ -20,7 +20,7 @@ def sign__up():
 
 
 def get_db():
-    return sqlite3.connect("cooplink.db")
+    return sqlite3.connect("instance\cooplink.db")
 
 # ----------------- SIGN UP -----------------
 @cooplink.route("/sign_up", methods=["GET", "POST"])
@@ -55,7 +55,7 @@ def sign_up():
             db.close()
 
     return render_template("multi_signup.html")
-
+#----------------- END SIGN UP -----------------
 
 # ----------------- LOG IN -----------------
 @cooplink.route("/login", methods=["GET", "POST"])
@@ -76,23 +76,36 @@ def log_in():
             if check_password_hash(hashed_password, password) and user_system == system:
                 session['user_id'] = user_id
                 session['username'] = username
-                session['system'] = system
+                session['system'] = user_system
                 flash(f"Welcome {username}!")
                 return redirect(url_for('dashboard'))
         flash("Invalid credentials or system")
         return redirect(url_for('login'))
 
     return render_template("login.html")
+#---------------- END LOG IN -----------------
 
-
-# ----------------- DASHBOARD -----------------
+# ----------------- DASHBOARDS -----------------
 @cooplink.route("/dashboard")
 def dashboard():
     if 'user_id' not in session:
         return redirect(url_for('login'))
     return render_template("cooplink_dashboard.html")
 
+@cooplink.route("/dashboard-COOPLINK")
+def dashboard_COOPLINK():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    if session['system'] == user_system:
+        return render_template("cooplink.html")
+#----------------- END DASHBOARDS -----------------
 
+
+#--------------------- ADD USER -----------------
+@cooplink.route("/add_user")
+def add_user():
+    return render_template("user_add.html")
+#--------------------- END ADD USER -----------------
 
 @cooplink.route("/active sessions")
 def active_sessions():
@@ -116,80 +129,13 @@ def jobs_events():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # ----------------- LOGOUT -----------------
 @cooplink.route("/logout")
 def logout():
     session.clear()
     flash("Logged out successfully.")
     return redirect(url_for('login'))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#----------------- END LOGOUT -----------------
 
 @cooplink.route("/log_in")
 def login():
@@ -210,31 +156,6 @@ def contact():
 @cooplink.route("/about")
 def about():
     return render_template("multi_login.html")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#@cooplink.route("/log_out")
-#def logout():
-#    session.pop("user", None)  # Clear the session
-#    return redirect(url_for("login"))
-
 
 
 

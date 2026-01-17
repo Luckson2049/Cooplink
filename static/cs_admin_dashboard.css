@@ -12,7 +12,7 @@
         flex-wrap: wrap;           /* items wrap to next line */
         justify-content: flex-start; /* keep left alignment */
     }
-    
+  } 
     /* Responsive for large screens */
 @media (min-width: 1080px) {
     .nav-links {
@@ -137,11 +137,25 @@ header {
   box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .main-content {
-    padding: 15px;
-  }
+
+
+  /* Responsive for small screens */
+@media (max-width: 600px) {
+    footer {
+        flex-wrap: wrap;           /* items wrap to next line */
+        justify-content: flex-start; /* keep left alignment */
+    }
+  } 
+    /* Responsive for large screens */
+@media (min-width: 1080px) {
+    footer {
+        flex-wrap: wrap;           
+        justify-content: center;  /* center horizontally */
+        align-items: center;      /* center vertically */
+    }
+}
+
+  
   .cards {
     grid-template-columns: 1fr;
   }

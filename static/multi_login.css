@@ -23,7 +23,7 @@ body {
     .nav-links {
         flex-wrap: wrap;           /* items wrap to next line */
         justify-content: flex-start; /* keep left alignment */
-    }
+    }}
     
     /* Responsive for large screens */
 @media (min-width: 1080px) {
@@ -169,3 +169,4 @@ body {
     padding: 30px;
   }
 }
+

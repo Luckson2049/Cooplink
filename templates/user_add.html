@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Suite Admin Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='user_add.css') }}">
+</head>
+<body>
+</header>
+    <div class="navbar"><img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" width="50"> Cooplink</div>
+      <h1>Add user</h1>
+       </div>
+    </header>
+
+
+    <!-- User Credentials -->
+      <form>
+      <input type="email" id="email" class="email" name="email" placeholder="you@example.com" required>
+      <input type="text" autocomplete="one-time-code" placeholder="Code" inputmode="numeric" maxlength="6" pattern="\d{6}" required>
+      <button type="submit" class="add">Add User</button>
+</form>
+</body>
+</html>

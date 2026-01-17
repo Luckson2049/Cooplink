@@ -1,0 +1,58 @@
+
+body {background-color: rgb(219, 215, 215);}
+/* Form container */
+form {
+    justify-content: center;
+    background-color: #ebe3e3;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+
+/* Input fields */
+input[type="text"],
+input[type="email"],
+input[type="code"] {
+    width: 100%;              /* stretch to parent width */
+    max-width: 300px;         /* optional limit */
+    padding: 10px 12px;
+    margin: 8px auto 16px auto;  /* auto centers */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: block;           /* ensures block-level centering */
+}
+
+/* Submit button */
+button {
+    width: 100%;
+    padding: 12px;
+    margin: 2px;
+    background-color: #835f2ac5;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d6a670;
+}
+
+/* Responsive for small screens */
+@media (max-width: 600px) {
+    .nav-links {
+        flex-wrap: wrap;           /* items wrap to next line */
+        justify-content: flex-start; /* keep left alignment */
+    }
+    
+    /* Responsive for large screens */
+@media (min-width: 1080px) {
+    .nav-links {
+        flex-wrap: wrap;           
+        justify-content: center;  /* center horizontally */
+        align-items: center;      /* center vertically */
+    }
+}}
