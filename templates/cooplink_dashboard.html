@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Campus Suite Admin Dashboard</title>
+  <title>Cooplink Admin Dashboard</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='cs_admin_dashboard.css') }}">
 </head>
 <body>
@@ -15,7 +15,7 @@
   <!-- Main Content -->
   <main class="main-content">
     <header class="topbar">
-      <div class="navbar"><img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" width="50"> Campus Suite</div>
+      <div class="navbar"><img class="logo" src="{{ url_for('static', filename='static\cooplink.png') }}" alt="Logo" width="50"> CoopLink</div>
       <h1>Welcome, Admin <span>{{ session['username'] }}</span></h1>
       
         
@@ -24,7 +24,7 @@
 
     <!-- User Management -->
     <section id="user-management" class="dashboard-section">
-      <h2>👥 User Management</h2>
+      <h2>User Management</h2>
       <p>View, add, remove users, activate/deactivate accounts, and reset passwords.</p>
       <div class="cards">
         <div class="card">View Users</div>
@@ -36,19 +36,15 @@
 
     <!-- System Monitoring -->
     <section id="system-monitoring" class="dashboard-section">
-      <h2>🖥️ System Monitoring</h2>
+      <h2>System Monitoring</h2>
       <p>Track active sessions, login attempts, server uptime, and activity overview.</p>
       <div class="cards">
-        <div class="card"><a href="{{url_for('active_sessions') }}">Active Sessions</a></div>
-        <div class="card"><a href="{{url_for('login_attempts') }}">Login Attempts</a></div>
-        <div class="card"><a href="{{url_for('server_health') }}">Server Healths</a></div>
-        <div class="card"><a href="{{url_for('jobs_events') }}">Jobs / Events Activity</a></div>
-      </div>
+       </div>
     </section>
 
     <!-- Analytics & Reports -->
     <section id="analytics" class="dashboard-section">
-      <h2>📊 Analytics & Reports</h2>
+      <h2>Analytics & Reports</h2>
       <p>Visualize user activity, tasks, print jobs, and events.</p>
       <div class="cards">
         <div class="card">Users by Role</div>
@@ -60,7 +56,7 @@
 
     <!-- Moderation Tools -->
     <section id="moderation" class="dashboard-section">
-      <h2>⚠️ Moderation Tools</h2>
+      <h2>Moderation Tools</h2>
       <p>Review flagged content and approve/reject submissions.</p>
       <div class="cards">
         <div class="card">Flagged Reviews</div>
@@ -72,7 +68,7 @@
 
     <!-- Financial / Payout Control -->
     <section id="finance" class="dashboard-section">
-      <h2>💰 Financial Control</h2>
+      <h2>Financial Control</h2>
       <p>Manage commissions, withdrawals, and refunds for monetized services.</p>
       <div class="cards">
         <div class="card">Commission Tracking</div>
@@ -83,7 +79,7 @@
 
     <!-- System Settings -->
     <section id="settings" class="dashboard-section">
-      <h2>⚙️ System Settings</h2>
+      <h2>System Settings</h2>
       <p>Backup database, global messages, theme settings, and maintenance toggles.</p>
       <div class="cards">
         <div class="card">Backup / Restore</div>
