@@ -1,26 +1,71 @@
+from dotenv import load_dotenv
+load_dotenv()
 import sqlite3
+import os
 from flask import Flask, render_template,request,redirect,url_for,session,flash
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import timedelta
+
 
 
 cooplink = Flask(__name__)
 
-cooplink.secret_key = "your_secret_key_here"  # required for sessions
+#------------- SECURING SESSION -------------
+cooplink.config.update(
+SESSION_COOKIE_HTTPONLY = True, # Prevents JavaScript access to session cookies
+SESSION_COOKIE_SAMESITE = "Lax", # Mitigates CSRF attacks
+SESSION_COOKIE_SECURE = False, # Ensures cookies are only sent over HTTP
+SESSION_COOKIE_NAME = "cooplink_session", #session cookie name
+PERMANENT_SESSION_LIFETIME = timedelta(minutes=30) # Session lifetime
+)
+#------------- END SECURING SESSION -------------
 
-@cooplink.route("/")
+#-------------- SESSION ENFORCEMENT ---------
+@cooplink.before_request
+def session_enforcement():
+    if session.get("user_id") and not session.get("system"):
+        session.clear()
+        flash("Session expired. Please log in again.")
+        return redirect(url_for('login'))
+
+#-------------- END SESSION ENFORCEMENT ---------
+
+#--------------SECURING SCERET KEY--------
+cooplink.secret_key = os.environ.get("SECRET_KEY")
+if not cooplink.secret_key:
+    raise RuntimeError("SECRET_KEY environment variable not set")
+
+#--------------END SECURING SCERET KEY--------
+
+
+#------------- SESSION LIFETIME -------------
+cooplink.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
+#------------- END SESSION LIFETIME -------------
+
+
+#----------------- HOME -----------------
+@cooplink.route("/Cooplink")
 def home():
 	return render_template("home.html")
 
+#----------------- END HOME -----------------
+
+
+#----------------- MULTI SIGN UP -----------------
 
 @cooplink.route("/multi_signup")
 def sign__up():
 	return render_template('multi_signup.html')
 
+#----------------- END MULTI SIGN UP -----------------
 
 
+#----------- Database connection -----------
 
 def get_db():
-    return sqlite3.connect("instance\cooplink.db")
+    return sqlite3.connect(os.path.join(cooplink.instance_path, 'cooplink.db'))
+
+#----------- End Database connection -----------
 
 # ----------------- SIGN UP -----------------
 @cooplink.route("/sign_up", methods=["GET", "POST"])
@@ -58,7 +103,7 @@ def sign_up():
 #----------------- END SIGN UP -----------------
 
 # ----------------- LOG IN -----------------
-@cooplink.route("/login", methods=["GET", "POST"])
+@cooplink.route("/log_in", methods=["GET", "POST"])
 def log_in():
     if request.method == "POST":
         email = request.form['email']
@@ -74,29 +119,33 @@ def log_in():
         if user:
             user_id, username, hashed_password, user_system = user
             if check_password_hash(hashed_password, password) and user_system == system:
+                session.clear()  # Clear any existing session data
+                session.permanent = True  # Makes the session permanent
                 session['user_id'] = user_id
                 session['username'] = username
                 session['system'] = user_system
+                session.modified = True  # Ensure session is marked as modified
                 flash(f"Welcome {username}!")
                 return redirect(url_for('dashboard'))
         flash("Invalid credentials or system")
-        return redirect(url_for('login'))
+        return redirect(url_for('log_in'))
 
-    return render_template("login.html")
+    return render_template("multi_login.html")
 #---------------- END LOG IN -----------------
 
 # ----------------- DASHBOARDS -----------------
 @cooplink.route("/dashboard")
 def dashboard():
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
+    if not session.get('user_id'):
+        flash("Please log in to access the dashboard.")
+        return redirect(url_for('log_in'))
     return render_template("cooplink_dashboard.html")
 
 @cooplink.route("/dashboard-COOPLINK")
 def dashboard_COOPLINK():
     if 'user_id' not in session:
         return redirect(url_for('login'))
-    if session['system'] == user_system:
+    if session.get('system'):
         return render_template("cooplink.html")
 #----------------- END DASHBOARDS -----------------
 
@@ -107,26 +156,6 @@ def add_user():
     return render_template("user_add.html")
 #--------------------- END ADD USER -----------------
 
-@cooplink.route("/active sessions")
-def active_sessions():
-	return render_template('active_sessions.html')
-
-
-@cooplink.route("/login attempts")
-def login_attempts():
-	return render_template('log_in_attempts.html')
-
-
-@cooplink.route("/server health")
-def server_health():
-	return render_template('server_health.html')
-
-
-@cooplink.route("/active sessions")
-def jobs_events():
-	return render_template('jobs_events.html')
-
-
 
 
 # ----------------- LOGOUT -----------------
@@ -134,28 +163,9 @@ def jobs_events():
 def logout():
     session.clear()
     flash("Logged out successfully.")
-    return redirect(url_for('login'))
+    return redirect(url_for('log_in'))
 #----------------- END LOGOUT -----------------
 
-@cooplink.route("/log_in")
-def login():
-    return render_template("multi_login.html")
-
-
-@cooplink.route("/projects")
-def projects():
-    return render_template("multi_login.html")
-
-
-@cooplink.route("/contact")
-def contact():
-    return render_template("multi_login.html")
-
-
-
-@cooplink.route("/about")
-def about():
-    return render_template("multi_login.html")
 
 
 
