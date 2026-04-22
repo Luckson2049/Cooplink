@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-System Login | Tech Hub</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='buy.css') }}">
+</head>
+
+<body>
+
+<form method="POST">
+
+<h2>{{ product.name }}</h2>
+
+{% if product.image %}
+<img src="{{ url_for('static', filename='uploads/' + product.image) }}" width="300">
+{% endif %}
+
+<p>Price: K{{ product.price }}</p>
+<p>Available Stock: {{ product.stock }}</p>
+
+
+    <label>Quantity:</label>
+    <input type="number" name="quantity" min="1" max="{{ product.stock }}" required>
+
+    <br><br>
+
+    <label>Phone Number:</label>
+    <input type="text" name="phone" required>
+
+    <br><br>
+
+    <button type="submit">Place Order</button>
+
+
+    
+<p class="copyright">
+      <p>Powered by <strong>CoopLink</strong></p>
+      &copy; 2026 BEILO. All rights reserved.
+    </p>
+
+</form>
+
+</body>
+
+
+</html>

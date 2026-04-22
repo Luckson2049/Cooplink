@@ -46,7 +46,7 @@ body {
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
 }
 
@@ -62,11 +62,26 @@ body {
     font-weight: 500;
     font-size: 1rem;
     transition: color 0.3s ease;
+    background-color: rgb(45, 101, 221);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0px;
 }
 
 .nav-links li a:hover {
     color: #f0c808;  /* highlight gold */
 }
+
+/*CAUTION*/
+.caution {
+    color: red;
+    text-align: center;
+    padding: 15px;
+}
+
+
+
+
 
 /* Content Area */
 .content {
@@ -77,6 +92,53 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
+
+.about {
+    border-radius: 5px;
+    border-color: none;
+    padding: 5px;
+    margin: 5px;
+}
+
+
+.vision {
+    border-radius: 5px;
+    border-color: none;
+    padding: 5px;
+    margin: 5px;
+}
+
+.accomplishments {
+    border-radius: 5px;
+    border-color: none;
+    padding: 5px;
+    margin: 5px;
+}
+
+.future {
+    border-radius: 5px;
+    border-color: none;
+    padding: 5px;
+    margin: 5px;
+}
+
+.projects {
+    border-radius: 5px;
+    border-color: none;
+    padding: 5px;
+    margin: 5px;
+}
+
+.staff {
+    border-radius: 5px;
+    border-color: none;
+    padding: 5px;
+    margin: 5px;
+}
+
+
+
+
 
 /* Footer */
 footer {

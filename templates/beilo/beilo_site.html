@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BEILO | Products</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='beilo_site.css') }}">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <h1>BEILO</h1>
+    <p>Smart fashion for modern gentlemen</p>
+    <nav class="site-nav">
+      <ul>
+        <li><a>Shirts</a></li>
+        <li><a>Shoes</a></li>
+        <li><a>Trousers</a></li>
+        <li><a>Others</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- PRODUCTS -->
+  <main class="page-container">
+
+    <section class="products-grid">
+
+      <!-- Product Card -->
+       {% for products in products %}
+      <div class="product-card">
+
+        {% if products.image %}
+        <img src="{{ url_for('static', filename='uploads/' + products.image) }}" alt="{{ products.name }}" width="60">
+        {% endif %}
+        
+        <div class="product-info">
+          <h3>{{ products.name }}</h3>
+          <p>category: {{ products.category }}</p>
+          <p>price: k{{ products.price }}</p>
+          <p>stock: {{ products.stock }}</p>
+          <p>branch: {{ products.branch }}</p>
+          <a href="{{ url_for('buy_product', id=products.id) }}">
+    <button>Buy Now</button>
+</a>
+        </div>
+        
+      </div>
+
+      {% endfor %}
+
+      
+
+    </section>
+
+  </main>
+
+ <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+
+      <div>
+        <h3>BEILO Stores</h3>
+        <p>Downtown Mall (Upstairs)</p>
+        <p>City Market – Munyaule Rd</p>
+        <p>Carousel Shopping Mall</p>
+        <p>Regional Trade Village</p>
+      </div>
+
+      <div>
+        <button class="login"><a  href="{{ url_for('log_in') }}">Log in</a></button>
+        <h3>Contact</h3>
+        <p>Email: <a href="mailto:support@beilo.com">support@beilo.com</a></p>
+        <p>Phone: +260 123 456 789</p>
+      </div>
+
+    </div>
+
+    <p class="copyright">
+      <p>Powered by <strong>CoopLink</strong></p>
+      &copy; 2025 BEILO. All rights reserved.
+    </p>
+
+</body>
+</html>

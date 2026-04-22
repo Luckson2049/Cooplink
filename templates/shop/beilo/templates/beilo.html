@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Beilo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='beilo.css') }}">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h2 class="logo">Beilo Dashboard</h2>
+
+        <nav>
+            <a href="{{ url_for('beilo_site') }}" class="return">Return to Beilo</a>
+             <a href="{{ url_for('beilo_product_management') }}" class="return">Product Management</a>
+            
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <h1>Welcome, <span>{{ session['username'] }}</span></h1>
+
+        <!-- STAT CARDS -->
+        <div class="stats">
+            <div class="card">
+                <h3>Total Orders</h3>
+                <p>{{ todays_orders }}</p>
+            </div>
+
+
+            <div class="card">
+                <h3>Pending</h3>
+                <p>{{ pending_orders }}</p>
+            </div>
+
+        </div>
+
+       
+
+<!---REQUESTED-->
+<section class="recent">
+            <h2>Requested Orders</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Item</th>
+                        <th>Phone number</th>
+                        <th>Quantity</th>
+                        <th>Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.name }}</td>
+                        <td>{{ order.phone }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td>{{ order.created_at }}</td>
+                        <td><form action="{{ url_for('complete_order',order_id=order.id) }}" method="POST"><button type="submit">Mark Completed</button></form></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+
+
+
+            </table>
+        </section>  
+<h3>Completed Orders</h3>
+
+                <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Item</th>
+                        <th>Phone number</th>
+                        <th>Quantity</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.name }}</td>
+                        <td>{{ order.phone }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td>{{ order.created_at }}</td>
+                      </tr>
+                    {% endfor %}
+                </tbody>
+
+
+
+
+            </table>
+        </section>
+<a href="{{ url_for('logout') }}" class="logout">Logout</a>
+    </main>
+
+</div>
+
+<!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+
+      <div>
+        <h3>BEILO Stores</h3>
+        <p>Downtown Mall (Upstairs)</p>
+        <p>City Market – Munyaule Rd</p>
+        <p>Carousel Shopping Mall</p>
+        <p>Regional Trade Village</p>
+      </div>
+
+      <div>
+        <h3>Contact</h3>
+        <p>Email: <a href="mailto:support@beilo.com">support@beilo.com</a></p>
+        <p>Phone: +260 123 456 789</p>
+      </div>
+
+      <p>Powered by <strong>CoopLink</strong></p>
+
+    </div>
+
+    <p class="copyright">
+
+</body>
+</html>
