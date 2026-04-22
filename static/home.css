@@ -83,6 +83,8 @@ body {
 
 
 
+
+
 /* Content Area */
 .content {
     max-width: 1100px;
@@ -92,6 +94,39 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
+
+
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #1a2a6c, #2d65dd);
+    color: white;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.cta-btn {
+    background-color: #f0c808;
+    color: #1a2a6c;
+    padding: 12px 25px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 25px;
+    transition: 0.3s;
+}
+
+.cta-btn:hover {
+    background-color: white;
+}
+
 
 .about {
     border-radius: 5px;
