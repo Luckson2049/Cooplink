@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BEILO | Inventory</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='beilo_product.css') }}">
+</head>
+
+<body>
+
+<header class="admin-header">
+    <h1>BEILO Inventory</h1>
+    <p>Stock Management Dashboard</p>
+</header>
+
+<main class="admin-container">
+
+    <!-- ADD / UPDATE PRODUCT -->
+    <section class="form-section">
+        <h2>Add / Update Product</h2>
+
+        <form action="{{ url_for('beilo_product_management') }}" method="POST" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Category</label>
+                <select name="category">
+                    <option>Shirt</option>
+                    <option>Shoes</option>
+                    <option>Suit</option>
+                    <option>Accessories</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Price (ZMW)</label>
+                <input type="number" name="price" required>
+            </div>
+
+            <div class="form-group">
+                <label>Stock Quantity</label>
+                <input type="number" name="stock" required>
+            </div>
+
+            <div class="form-group">
+                <label>Branch</label>
+                <select name="branch">
+                    <option>Downtown Mall</option>
+                    <option>City Market</option>
+                    <option>Carousel Mall</option>
+                    <option>Regional Trade Village</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+    <label>Product Image</label>
+    <input type="file" name="image" accept="image/*" required>
+</div>
+
+
+            <button type="submit" class="btn-primary">
+                Save Product
+            </button>
+
+        </form>
+    </section>
+
+    <!-- CURRENT STOCK TABLE -->
+    <section class="table-section">
+        <h2>Current Stock</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Branch</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>ZMW {{ product.price }}</td>
+                    <td>{{ product.stock }}</td>
+                    <td>{{ product.branch }}</td>
+                    <td>
+  {% if product.image %}
+    <img src="{{ url_for('static', filename='uploads/' + product.image) }}" width="60">
+  {% else %}
+    No image
+  {% endif %}
+</td>
+
+                    <td>
+                        
+                        <form action='{{ url_for("delete", id=product.id) }}' method="POST" style="display:inline;">
+                            <button type="submit" class="btn-primary">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </section>
+
+</main>
+
+</body>
+</html>

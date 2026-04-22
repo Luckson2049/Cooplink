@@ -1,0 +1,222 @@
+/* GENERAL */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #d7d8d8;
+    color: #333;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    background: #584c3a;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    transition: width 0.3s;
+}
+
+.sidebar .logo {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar nav a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    transition: background 0.3s;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    background: #d6cb31;
+}
+
+
+/*ACTION-BUTTON*/
+button {
+  color: white;
+  background-color: #d4a373;
+  border-radius: 5px;
+  border-color: #d4a373;
+  margin: 10px;
+  padding: 10px;
+}
+
+a.logout {
+    width: 50px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    padding: 20px;
+    transition: width 0.3s;
+    background: #e40505;
+}
+
+.sidebar nav a.logout:hover {
+    background: #ec5252;
+}
+
+.sidebar nav a.return {
+    margin-top: auto;
+    background: #7e622e;
+}
+
+.sidebar nav a.return:hover {
+    background: #9c874c;
+}
+
+/* MAIN CONTENT */
+.main {
+    flex: 1;
+    padding: 30px;
+}
+
+/* WELCOME */
+.main h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+/* STAT CARDS */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.card h3 {
+    margin: 0;
+    color: #0c4e20;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+/* RECENT ORDERS */
+.recent h2 {
+    margin-bottom: 15px;
+    color: #9e751d;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+thead {
+    background: #857259;
+    color: white;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+.status.delivered {
+    color: green;
+    font-weight: bold;
+}
+
+.status.pending {
+    color: orange;
+    font-weight: bold;
+}
+
+.status.cancelled {
+    color: red;
+    font-weight: bold;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px;
+    }
+
+    .sidebar nav {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .sidebar nav a {
+        flex: 1;
+        margin: 0 5px;
+        text-align: center;
+    }
+
+    .stats {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+}
+
+
+
+/* Footer */
+footer {
+    background-color: #584c3a;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    border-top: 3px solid #f0c808; /* accent line */
+}
+
+footer p {
+    margin: 0.3rem 0;
+}
+
+footer strong {
+    color: #f0c808; /* gold highlight for CoopLink */
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}

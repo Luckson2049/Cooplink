@@ -15,7 +15,7 @@
   <!-- Main Content -->
   <main class="main-content">
     <header class="topbar">
-      <div class="navbar"><img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" width="50"> Campus Suite</div>
+      <div class="navbar"><img class="logo" src="{{ url_for('static', filename='static\cooplink.png') }}" alt="Logo" width="50"> CoopLink</div>
       <h1>Welcome, Admin <span>{{ session['username'] }}</span></h1>
       
         
@@ -25,44 +25,55 @@
     <!-- User Management -->
     <section id="user-management" class="dashboard-section">
       <h2>User Management</h2>
-      <p>View, add, remove users, activate/deactivate accounts, and reset passwords.</p>
+      
       <div class="cards">
         <div class="card">View Users</div>
-        <div class="card">Add User</div>
+        <div class="card"><a href="{{ url_for('add_user') }}">Add User</a></div>
         <div class="card">Deactivate / Activate</div>
         <div class="card">Reset Password</div>
       </div>
     </section>
 
-    <!-- System Monitoring -->
-    <section id="system-monitoring" class="dashboard-section">
-      <h2>System Monitoring</h2>
-      <p>Track active sessions, login attempts, server uptime, and activity overview.</p>
+   
+    <!-- Analytics & Reports -->
+    <section id="analytics" class="dashboard-section">
+      <h2>Analytics & Reports</h2>
+      
       <div class="cards">
-       <!--
-        <div class="card"><a href="{{url_for('login_attempts') }}">Login Attempts</a></div>
-        <div class="card"><a href="{{url_for('server_health') }}">Server Healths</a></div>
-        <div class="card"><a href="{{url_for('jobs_events') }}">Jobs / Events Activity</a></div>
-      </div>-->
+        <div class="card">Users by Role</div>
+        <div class="card">Active Users</div>
+        <div class="card">Approved users</div>
+        <div class="card">Visual Data</div>
+      </div>
     </section>
-
 
     <!-- Moderation Tools -->
     <section id="moderation" class="dashboard-section">
       <h2>Moderation Tools</h2>
-      <p>Review flagged content and approve/reject submissions.</p>
+    
       <div class="cards">
-        <div class="card">Flagged Reviews</div>
-        <div class="card">Flagged Tasks</div>
-        <div class="card">Event Posts</div>
+        <div class="card">Requested Features</div>
+        <div class="card">Approved Features</div>
+        <div class="card">Feature Progress</div>
+        <div class="card"></div>
       </div>
     </section>
 
+    <!-- Financial / Payout Control -->
+    <section id="finance" class="dashboard-section">
+      <h2>Financial Control</h2>
+      
+      <div class="cards">
+        <div class="card">Commission Tracking</div>
+        <div class="card">Withdrawals</div>
+        <div class="card">Refunds</div>
+      </div>
+    </section>
 
     <!-- System Settings -->
     <section id="settings" class="dashboard-section">
       <h2>System Settings</h2>
-      <p>Backup database, global messages, theme settings, and maintenance toggles.</p>
+     
       <div class="cards">
         <div class="card">Backup / Restore</div>
         <div class="card">Global Announcements</div>

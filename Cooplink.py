@@ -1,10 +1,21 @@
+#Cooplink - Muilti-System Web Platform
+#This application handles:
+#-user authentication
+#Session management
+#Multi-system routing (cooplink,beilo)
+#Dashboard rendering
+
+#STATUS: MVP (In Development)
+
 from dotenv import load_dotenv
 load_dotenv()
 import sqlite3
 import os
 from flask import Flask, render_template,request,redirect,url_for,session,flash
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename  
 from datetime import timedelta
+
 
 
 
@@ -42,6 +53,16 @@ if not cooplink.secret_key:
 cooplink.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 #------------- END SESSION LIFETIME -------------
 
+#------------------ UPLOAD FOLDER -----------------
+
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "static", "uploads")
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # make sure folder exists
+
+cooplink.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+#----------------- END UPLOAD FOLDER -----------------
+
+
 
 #----------------- HOME -----------------
 @cooplink.route("/Cooplink")
@@ -53,9 +74,9 @@ def home():
 
 #----------------- MULTI SIGN UP -----------------
 
-@cooplink.route("/multi_signup")
+@cooplink.route("/auth/multi_signup")
 def sign__up():
-	return render_template('multi_signup.html')
+	return render_template('auth/multi_signup.html')
 
 #----------------- END MULTI SIGN UP -----------------
 
@@ -63,7 +84,9 @@ def sign__up():
 #----------- Database connection -----------
 
 def get_db():
-    return sqlite3.connect(os.path.join(cooplink.instance_path, 'cooplink.db'))
+    DB=sqlite3.connect(os.path.join(cooplink.instance_path, 'cooplink.db'))
+    DB.row_factory = sqlite3.Row  # Enable row access by column name
+    return DB
 
 #----------- End Database connection -----------
 
@@ -79,7 +102,7 @@ def sign_up():
 
         if password != confirm_password:
             flash("Passwords do not match")
-            return redirect(url_for('sign__up'))
+            return redirect(url_for('sign_up'))
 
         hashed_password = generate_password_hash(password)
 
@@ -92,14 +115,14 @@ def sign_up():
             """, (username, email, hashed_password, system))
             db.commit()
             flash("Account created successfully! Please log in.")
-            return redirect(url_for('login'))
+            return redirect(url_for('log_in'))
         except sqlite3.IntegrityError:
             flash("Email already registered")
-            return redirect(url_for('sign__up'))
+            return redirect(url_for('sign_up'))
         finally:
             db.close()
 
-    return render_template("multi_signup.html")
+    return render_template("auth/multi_signup.html")
 #----------------- END SIGN UP -----------------
 
 # ----------------- LOG IN -----------------
@@ -125,12 +148,19 @@ def log_in():
                 session['username'] = username
                 session['system'] = user_system
                 session.modified = True  # Ensure session is marked as modified
-                flash(f"Welcome {username}!")
-                return redirect(url_for('dashboard'))
+                if user_system == "cooplink":
+                    return redirect(url_for('dashboard'))
+                elif user_system == "campus suite":
+                    return redirect(url_for('campus_suite_dashboard'))
+                elif user_system == "Beilo":
+                    return redirect(url_for('dashboard_BEILO'))
+                else:
+                    flash("System not recognized for dashboard access.")
+                    return redirect(url_for('log_in'))
         flash("Invalid credentials or system")
         return redirect(url_for('log_in'))
 
-    return render_template("multi_login.html")
+    return render_template("auth/multi_login.html")
 #---------------- END LOG IN -----------------
 
 # ----------------- DASHBOARDS -----------------
@@ -139,21 +169,240 @@ def dashboard():
     if not session.get('user_id'):
         flash("Please log in to access the dashboard.")
         return redirect(url_for('log_in'))
-    return render_template("cooplink_dashboard.html")
+    return render_template("dashboard/cooplink_dashboard.html")
+
+#----------------- COOPLINK DASHBOARD -----------------
 
 @cooplink.route("/dashboard-COOPLINK")
 def dashboard_COOPLINK():
     if 'user_id' not in session:
-        return redirect(url_for('login'))
+        return redirect(url_for('log_in'))
     if session.get('system'):
-        return render_template("cooplink.html")
+        return render_template("dashboard/cooplink.html")
+
+#----------------- END COOPLINK DASHBOARD -----------------
+
+
+#------------------- BEILO ---------------------------
+
+
+#----------------- BEILO DASHBOARD -----------------
+
+@cooplink.route("/dashboard-BEILO")
+def dashboard_BEILO():
+    if 'user_id' not in session:
+        return redirect(url_for('log_in'))
+
+    db = get_db()
+    cursor=db.cursor()
+    
+    cursor.execute( """  SELECT 
+    orders.id,
+    beilo_products.name,
+    orders.phone,
+    orders.quantity,
+    orders.created_at
+    FROM orders
+    JOIN beilo_products
+    ON orders.id = beilo_products.id
+    ORDER BY orders.created_at DESC
+
+     """)
+
+    orders = cursor.fetchall()
+    #----------------- TOTAL ORDERS -----------------
+    cursor.execute( """
+    SELECT COUNT(*)
+    FROM orders
+    WHERE DATE(created_at) = DATE('now')
+    """ )
+    todays_orders = cursor.fetchone()[0] 
+    #---------------- PENDING ORDERS -----------------
+    cursor.execute( """
+    SELECT COUNT(*)
+    FROM orders
+    WHERE status = 'pending'
+    """ )
+    pending_orders = cursor.fetchone()[0]
+    #------------------ COMPLETED ORDERS -----------------
+    if request.method == "POST":
+        order_id = request.form.get("order_id")
+        if order_id:
+            cursor.execute("""
+            UPDATE orders
+            SET status = 'completed'
+            WHERE id = ?
+            """,(order_id,))
+            db.commit()
+
+
+    return render_template("shop/beilo/templates/beilo.html", orders=orders,todays_orders=todays_orders,pending_orders=pending_orders)
+
+
+#------------------- ORDER CONTROL ----------------
+@cooplink.route("/complete/<int:order_id>", methods=["POST"])
+def complete_order(order_id):
+    db=get_db()
+    cursor = db.cursor()
+
+    cursor.execute("""
+    UPDATE orders SET status = 'completed' WHERE id = ?
+    """,(order_id,))
+
+    db.commit()
+    return redirect(url_for('dashboard_BEILO'))
+
+
+
+
+#----------------- END BEILO DASHBOARD -----------------
+
+
+#------------------ BEILO_SITE ----------------------
+@cooplink.route("/beilo_site")
+def beilo_site():
+    db=get_db()
+    cursor = db.cursor()
+
+    cursor.execute("SELECT * FROM beilo_products")
+    products = cursor.fetchall()
+    return render_template("beilo/beilo_site.html", products=products)
+
+
+
+#----------------- BEILO PRODUCT MANAGEMENT -----------------
+
+
+#----------------- IMAGE UPLOAD -----------------
+#----------------- IMAGE UPLOAD / PRODUCT MANAGEMENT -----------------
+@cooplink.route("/beilo_product_management", methods=["GET", "POST"])
+def beilo_product_management():
+    if 'user_id' not in session:
+        return redirect(url_for('log_in'))
+    
+    db = get_db()
+    cursor = db.cursor()
+
+    if request.method == "POST":
+        try:
+            print("Received POST request for product management")
+            # --- get form data ---
+            name = request.form["name"]
+            category = request.form["category"]
+            price = request.form["price"]
+            stock = request.form["stock"]
+            branch = request.form["branch"]
+
+            # --- handle image ---
+            file = request.files.get("image")
+            image_filename = None
+
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(cooplink.config['UPLOAD_FOLDER'], filename))
+                image_filename = filename
+
+            # --- insert into DB ---
+            cursor.execute("""
+                INSERT INTO beilo_products (name, category, price, stock, branch, image)
+                VALUES (?, ?, ?, ?, ?, ?)
+            """, (name, category, price, stock, branch, image_filename))
+
+            db.commit()
+            print("Product added successfully:")
+
+        except Exception as e:
+            print("An err occured while trying to access the Database, please try again later!:", e)
+            db.rollback()
+
+        return redirect(url_for('beilo_product_management'))
+
+        #---------------GET REQUEST-------------------
+    cursor.execute("SELECT * FROM beilo_products")
+    products = cursor.fetchall()
+    return render_template("shop/beilo/templates/product_management.html", products=products)
+
+
+#----------------- ALLOWED IMAGE FORMATS -----------------
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+#----------------- END IMAGE UPLOAD -----------------
+
+#-----------------DELETE PRODUCT-------------------
+@cooplink.route('/delete/<int:id>', methods=['POST'])
+def delete(id):
+    db = get_db()
+    cursor = db.cursor()
+
+    cursor.execute(''' DELETE FROM beilo_products WHERE id=? ''', (id,))
+    
+    db.commit()
+
+    db.close()
+
+    return redirect(url_for('beilo_product_management'))
+
+
+#------------------ END BEILO PRODUCT MANAGEMENT -----------------
+
+
+#------------------ BEILO_BUY_REQUEST -----------------------
+
+@cooplink.route("/buy/<int:id>", methods=["GET", "POST"])
+def buy_product(id):
+    db = get_db()
+    cursor = db.cursor()
+
+    # Get product details
+    cursor.execute("SELECT * FROM beilo_products WHERE id = ?", (id,))
+    product = cursor.fetchone()
+
+    if not product:
+        return "Product not found", 404
+
+    if request.method == "POST":
+        phone = request.form["phone"]
+        quantity = int(request.form["quantity"])
+        name = product
+        
+
+#------------------ SAVING ORDER --------------------
+        cursor.execute("""INSERT INTO orders (id, phone, quantity) VALUES (?, ?, ?) """, (id, phone, quantity))
+
+        db.commit()
+        name = cursor.execute("SELECT * FROM beilo_products")
+        products = cursor.fetchall()
+        return "Order placed successfully!"
+
+    return render_template("shop/beilo/templates/request_buy.html", product=product)
+
+
+
+@cooplink.route("/successfull_order")
+def successfull_order():
+    return render_template("shop/beilo/order_confirm.html")
+
+#------------------ END BEILO BUY REQUEST ---------------------
+
+
+
+
+#----------------- BEILO END ------------------------
+
+
+
 #----------------- END DASHBOARDS -----------------
 
 
 #--------------------- ADD USER -----------------
 @cooplink.route("/add_user")
 def add_user():
-    return render_template("user_add.html")
+    return render_template("feature/user_add.html")
 #--------------------- END ADD USER -----------------
 
 
@@ -170,4 +419,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    cooplink.run(host="0.0.0.0", port=5000,debug=True)
+    cooplink.run(host="0.0.0.0", port=int(os.environ.get("PORT",5000)))
