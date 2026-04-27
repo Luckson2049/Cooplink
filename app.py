@@ -15,7 +15,7 @@ from flask import Flask, render_template,request,redirect,url_for,session,flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename  
 from datetime import timedelta
-
+import psycopg2
 
 
 
@@ -84,8 +84,8 @@ def sign__up():
 #----------- Database connection -----------
 
 def get_db():
-    DB=sqlite3.connect(os.path.join(cooplink.instance_path, 'cooplink.db'))
-    DB.row_factory = sqlite3.Row  # Enable row access by column name
+    db_url = os.environ.get("DATABASE_URL")
+    DB = psycopg2.connect(db_url)
     return DB
 
 #----------- End Database connection -----------
@@ -111,7 +111,7 @@ def sign_up():
         try:
             cursor.execute("""
                 INSERT INTO users (username, email, password, system)
-                VALUES (?, ?, ?, ?)
+                VALUES (%s, %s, %s, %s)
             """, (username, email, hashed_password, system))
             db.commit()
             flash("Account created successfully! Please log in.")
@@ -135,7 +135,7 @@ def log_in():
 
         db = get_db()
         cursor = db.cursor()
-        cursor.execute("SELECT id, username, password, system FROM users WHERE email=?", (email,))
+        cursor.execute("SELECT id, username, password, system FROM users WHERE email=%s", (email,))
         user = cursor.fetchone()
         db.close()
 
@@ -231,7 +231,7 @@ def dashboard_BEILO():
             cursor.execute("""
             UPDATE orders
             SET status = 'completed'
-            WHERE id = ?
+            WHERE id = %s
             """,(order_id,))
             db.commit()
 
@@ -305,7 +305,7 @@ def beilo_product_management():
             # --- insert into DB ---
             cursor.execute("""
                 INSERT INTO beilo_products (name, category, price, stock, branch, image)
-                VALUES (?, ?, ?, ?, ?, ?)
+                VALUES (%s, %s, %s, %s, %s, %s)
             """, (name, category, price, stock, branch, image_filename))
 
             db.commit()
@@ -339,7 +339,7 @@ def delete(id):
     db = get_db()
     cursor = db.cursor()
 
-    cursor.execute(''' DELETE FROM beilo_products WHERE id=? ''', (id,))
+    cursor.execute(''' DELETE FROM beilo_products WHERE id=%s ''', (id,))
     
     db.commit()
 
@@ -359,7 +359,7 @@ def buy_product(id):
     cursor = db.cursor()
 
     # Get product details
-    cursor.execute("SELECT * FROM beilo_products WHERE id = ?", (id,))
+    cursor.execute("SELECT * FROM beilo_products WHERE id = %s", (id,))
     product = cursor.fetchone()
 
     if not product:
@@ -372,7 +372,7 @@ def buy_product(id):
         
 
 #------------------ SAVING ORDER --------------------
-        cursor.execute("""INSERT INTO orders (id, phone, quantity) VALUES (?, ?, ?) """, (id, phone, quantity))
+        cursor.execute("""INSERT INTO orders (id, phone, quantity) VALUES (%s, %s, %s) """, (id, phone, quantity))
 
         db.commit()
         name = cursor.execute("SELECT * FROM beilo_products")
