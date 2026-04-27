@@ -21,6 +21,7 @@ import psycopg2
 
 cooplink = Flask(__name__)
 
+
 #------------- SECURING SESSION -------------
 cooplink.config.update(
 SESSION_COOKIE_HTTPONLY = True, # Prevents JavaScript access to session cookies
