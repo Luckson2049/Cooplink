@@ -245,7 +245,7 @@ def complete_order(order_id):
     cursor = db.cursor()
 
     cursor.execute("""
-    UPDATE orders SET status = 'completed' WHERE id = ?
+    UPDATE orders SET status = 'completed' WHERE id = %s
     """,(order_id,))
 
     db.commit()
