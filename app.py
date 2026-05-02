@@ -198,7 +198,7 @@ def dashboard_BEILO():
     cursor.execute( """  SELECT 
     orders.id,
     beilo_products.name,
-    orders.phone,
+    orders.phone_number,
     orders.quantity,
     orders.created_at
     FROM orders
