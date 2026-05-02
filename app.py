@@ -85,8 +85,7 @@ def sign__up():
 #----------- Database connection -----------
 
 def get_db():
-    db_url = os.environ.get("DATABASE_URL")
-    DB = psycopg2.connect(db_url)
+   return psycopg2.connect(os.environ.get("DATABASE_URL"))
     return DB
 
 #----------- End Database connection -----------
