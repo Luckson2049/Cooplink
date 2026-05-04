@@ -21,11 +21,12 @@ import psycopg2
 
 cooplink = Flask(__name__)
 
+
 #------------- SECURING SESSION -------------
 cooplink.config.update(
 SESSION_COOKIE_HTTPONLY = True, # Prevents JavaScript access to session cookies
 SESSION_COOKIE_SAMESITE = "Lax", # Mitigates CSRF attacks
-SESSION_COOKIE_SECURE = False, # Ensures cookies are only sent over HTTP
+SESSION_COOKIE_SECURE = True, # Ensures cookies are only sent over HTTP
 SESSION_COOKIE_NAME = "cooplink_session", #session cookie name
 PERMANENT_SESSION_LIFETIME = timedelta(minutes=30) # Session lifetime
 )
@@ -84,9 +85,7 @@ def sign__up():
 #----------- Database connection -----------
 
 def get_db():
-    db_url = os.environ.get("DATABASE_URL")
-    DB = psycopg2.connect(db_url)
-    return DB
+   return psycopg2.connect(os.environ.get("DATABASE_URL"))
 
 #----------- End Database connection -----------
 
@@ -199,7 +198,7 @@ def dashboard_BEILO():
     cursor.execute( """  SELECT 
     orders.id,
     beilo_products.name,
-    orders.phone,
+    orders.phone_number,
     orders.quantity,
     orders.created_at
     FROM orders
@@ -246,7 +245,7 @@ def complete_order(order_id):
     cursor = db.cursor()
 
     cursor.execute("""
-    UPDATE orders SET status = 'completed' WHERE id = ?
+    UPDATE orders SET status = 'completed' WHERE id = %s
     """,(order_id,))
 
     db.commit()

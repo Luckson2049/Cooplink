@@ -8,7 +8,7 @@ CoopLink is a multi-system web platformdesigned to manage digital workflows acro
 
 ## Tech stack
 -Python(flask)
--SQLite
+-PostgreSQL
 -HTML/CSS
 
 ## Status
