@@ -26,7 +26,7 @@ cooplink = Flask(__name__)
 cooplink.config.update(
 SESSION_COOKIE_HTTPONLY = True, # Prevents JavaScript access to session cookies
 SESSION_COOKIE_SAMESITE = "Lax", # Mitigates CSRF attacks
-SESSION_COOKIE_SECURE = False, # Ensures cookies are only sent over HTTP
+SESSION_COOKIE_SECURE = True, # Ensures cookies are only sent over HTTP
 SESSION_COOKIE_NAME = "cooplink_session", #session cookie name
 PERMANENT_SESSION_LIFETIME = timedelta(minutes=30) # Session lifetime
 )
