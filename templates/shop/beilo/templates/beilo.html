@@ -68,7 +68,7 @@
                         <td>{{ order.phone }}</td>
                         <td>{{ order.quantity }}</td>
                         <td>{{ order.created_at }}</td>
-                        <td><form action="{{ url_for('complete_order',order_id=order[0]) }}" method="POST"><button type="submit">Mark Completed</button></form></td>
+                        <td><form action="{{ url_for('complete_order',order_id=order['id']) }}" method="POST"><button type="submit">Mark Completed</button></form></td>
                     </tr>
                     {% endfor %}
                 </tbody>

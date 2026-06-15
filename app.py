@@ -16,6 +16,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename  
 from datetime import timedelta
 import psycopg2
+from psycopg2.extras import RealDictCursor
 
 
 
@@ -26,7 +27,7 @@ cooplink = Flask(__name__)
 cooplink.config.update(
 SESSION_COOKIE_HTTPONLY = True, # Prevents JavaScript access to session cookies
 SESSION_COOKIE_SAMESITE = "Lax", # Mitigates CSRF attacks
-SESSION_COOKIE_SECURE = True, # Ensures cookies are only sent over HTTP
+SESSION_COOKIE_SECURE = False, # Ensures cookies are only sent over HTTP if set to True
 SESSION_COOKIE_NAME = "cooplink_session", #session cookie name
 PERMANENT_SESSION_LIFETIME = timedelta(minutes=30) # Session lifetime
 )
@@ -85,7 +86,7 @@ def sign__up():
 #----------- Database connection -----------
 
 def get_db():
-   return psycopg2.connect(os.environ.get("DATABASE_URL"))
+    return psycopg2.connect(os.getenv("DATABASE_URL"), cursor_factory=RealDictCursor)
 
 #----------- End Database connection -----------
 
@@ -139,7 +140,11 @@ def log_in():
         db.close()
 
         if user:
-            user_id, username, hashed_password, user_system = user
+            user_id = user['id']
+            username = user['username']
+            hashed_password = user['password']
+            user_system = user['system']
+
             if check_password_hash(hashed_password, password) and user_system == system:
                 session.clear()  # Clear any existing session data
                 session.permanent = True  # Makes the session permanent
@@ -211,18 +216,20 @@ def dashboard_BEILO():
     orders = cursor.fetchall()
     #----------------- TOTAL ORDERS -----------------
     cursor.execute( """
-    SELECT COUNT(*)
+    SELECT COUNT(*) As count
     FROM orders
-    WHERE DATE(created_at) = DATE('now')
+    WHERE DATE(created_at) = CURRENT_DATE
     """ )
-    todays_orders = cursor.fetchone()[0] 
+    todays_orders = cursor.fetchone()['count'] 
     #---------------- PENDING ORDERS -----------------
     cursor.execute( """
-    SELECT COUNT(*)
+    SELECT COUNT(*) As count
     FROM orders
     WHERE status = 'pending'
     """ )
-    pending_orders = cursor.fetchone()[0]
+    pending_orders = cursor.fetchone()['count']
+
+    
     #------------------ COMPLETED ORDERS -----------------
     if request.method == "POST":
         order_id = request.form.get("order_id")
@@ -263,11 +270,11 @@ def beilo_site():
     db=get_db()
     cursor = db.cursor()
 
-    cursor.execute("SELECT * FROM beilo_products")
+    cursor.execute("SELECT * FROM beilo_products ORDER BY id DESC")
     products = cursor.fetchall()
     return render_template("beilo/beilo_site.html", products=products)
 
-
+#------------------ END BEILO_SITE ----------------------
 
 #----------------- BEILO PRODUCT MANAGEMENT -----------------
 
@@ -293,8 +300,11 @@ def beilo_product_management():
             branch = request.form["branch"]
 
             # --- handle image ---
-            file = request.files.get("image")
+            file = request.files["image"]
             image_filename = None
+            #---- ensure upload folder exists ---
+            UPLOAD_FOLDER = "static/uploads"
+            cooplink.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
@@ -357,7 +367,7 @@ def buy_product(id):
     db = get_db()
     cursor = db.cursor()
 
-    # Get product details
+    # -------------- Get product details ---------------
     cursor.execute("SELECT * FROM beilo_products WHERE id = %s", (id,))
     product = cursor.fetchone()
 
@@ -365,13 +375,14 @@ def buy_product(id):
         return "Product not found", 404
 
     if request.method == "POST":
-        phone = request.form["phone"]
+        phone = request.form["phone_number"]
         quantity = int(request.form["quantity"])
         name = product
         
 
 #------------------ SAVING ORDER --------------------
-        cursor.execute("""INSERT INTO orders (id, phone, quantity) VALUES (%s, %s, %s) """, (id, phone, quantity))
+        cursor.execute("""INSERT INTO orders (product_name, phone_number, quantity) VALUES (%s, %s, %s) """, (product['name'], phone, quantity))
+        
 
         db.commit()
         name = cursor.execute("SELECT * FROM beilo_products")
