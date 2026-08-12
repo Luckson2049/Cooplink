@@ -1,0 +1,31 @@
+
+{% block title %}View Users - CoopLink{% endblock %}
+{% block header_title %}User Directory{% endblock %}
+{% block header_subtitle %}Manage all registered platform accounts{% endblock %}
+
+{% block content %}
+<section class="dashboard-section">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td><strong>{{ user.username }}</strong></td>
+        <td>{{ user.email }}</td>
+        <td><span class="badge">{{ user.role }}</span></td>
+        <td><span class="status-dot {{ 'active' if user.is_active else 'inactive' }}"></span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

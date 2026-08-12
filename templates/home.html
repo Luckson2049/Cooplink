@@ -8,114 +8,191 @@
 </head>
 <body>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <h1>CoopLink</h1>
-        <p>Manage multiple systems and projects from one platform.</p>
-        <div class="nav-container">
-            <ul class="nav-links">
-                
-              
-                <li><a href="{{ url_for('log_in') }}">Login</a></li>
-            </ul>
+    <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="{{ url_for('home') }}" class="logo"><img class="logo" src="{{ url_for('static', filename='cooplinkhub.png') }}" alt="CoopLink Logo">cooplink<span>.</span></a>
+      <nav class="nav-links">
+        <a href="#features">Solutions</a>
+        <a href="#metrics">Impact</a>
+        <a href="#">Pricing</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="{{ url_for('log_in') }}" class="btn btn-primary">Sign In</a>
+      </div>
+    </div>
+  </header>
+
+ <!-- Hero Section -->
+<p class="caution">MVP Version - Features are actively being developed with feedback from real businesses.</p>
+
+<section class="hero">
+  <div class="container hero-container">
+    <div class="hero-content">
+
+      <span class="badge">Business & Operations Management Platform</span>
+
+      <h1>Manage products, inventory, customer orders, projects, and daily business operations from one centralized platform.</h1>
+
+      <p>
+        CoopLink is a digital business management platform designed to help businesses streamline operations, improve organization, and enhance customer experiences through practical technology solutions.
+      </p>
+
+      <p><strong>Currently built for:</strong></p>
+
+      <ul class="hero-list">
+        <li>Boutique & Retail Stores</li>
+        <li>Small & Growing Businesses</li>
+        <li>Product-Based Businesses</li>
+        <li>Organizations managing projects and resources</li>
+      </ul>
+
+      <div class="hero-buttons">
+        <a href="#" class="btn btn-primary btn-lg">Request a Demo</a>
+        <a href="#" class="btn btn-secondary btn-lg">Learn More</a>
+      </div>
+
+    </div>
+
+    <div class="hero-visual">
+
+      <!-- Mockup of the Operations Dashboard -->
+
+      <div class="dashboard-mockup">
+
+        <div class="mockup-header">
+          <div class="mockup-dots">
+            <span></span><span></span><span></span>
+          </div>
+
+          <div class="mockup-title">
+            CoopLink Dashboard
+          </div>
+
         </div>
-    </nav>
 
-<p class="caution">MVP Version - Features are actively being developed!</p>
+        <div class="mockup-body">
 
+          <div class="mockup-sidebar"></div>
 
+          <div class="mockup-main">
 
-    <section class="hero">
-    <h2>CoopLink</h2>
-    <p>A multi-system platform for managing projects, workflows, and digital operations in one place.</p>
-    
-    <a href="{{ url_for('log_in') }}" class="cta-btn">Access Dashboard</a>
+            <div class="mockup-widget graph"></div>
+
+            <div class="mockup-grid">
+
+              <div class="mockup-widget"></div>
+
+              <div class="mockup-widget"></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
 </section>
 
-        <!-- About CoopLink -->
-    <section class="about" >
-        <h2>About CoopLink</h2>
-        <p>CoopLink is the central management system that powers multiple projects, ensuring smooth operations and connectivity. 
-        It serves as the backbone for online and offline initiatives, offering tools for organization, monitoring, and growth.</p>
-    </section>
+<!-- Highlights Section -->
 
-    <!-- Vision Section -->
-    <section class="vision" >
-        <div >
-            <h2>Our Vision</h2>
-            <p>To create a unified ecosystem where all projects, technical or non-technical, are seamlessly connected, managed, and recognized under a single trusted platform: CoopLink.</p>
-        </div>
-    </section>
+<section id="metrics" class="metrics">
 
-    <!-- Accomplishments Section -->
-    <section class="accomplishments" >
-        <div>
-            <h2>Accomplished</h2>
-            <ul>
-                <li>Developed the CoopLink framework for project management.</li>
-                <li>Integrated branding across multiple ongoing projects.</li>
-                <li>Designed a central login system with role/project selection.</li>
-            </ul>
-        </div>
-    </section>
+  <div class="container metrics-grid">
 
-    <!-- Future Plans Section -->
-    <section class="future" >
-        <div >
-            <h2>Will Accomplish</h2>
-            <ul>
-                <li>Full project management dashboard for monitoring all projects.</li>
-                <li>Centralized data analytics and reporting across platforms.</li>
-                <li>Seamless cross-project user management and role-based access.</li>
-            </ul>
-        </div>
-    </section>
+    <div class="metric-card">
+      <h3>Built for Businesses</h3>
+      <p>Designed to simplify daily business operations through one centralized platform.</p>
+    </div>
 
-    <!-- Projects Highlight Section -->
-    <section class="projects" >
-        <div >
-            <h2>Highlighted Projects</h2>
-            <div >
-                <!-- Example Project Card -->
-                <div >
-                    <h3>IoT Poultry Management</h3>
-                    <p>Automates poultry monitoring, feeding, and health tracking using IoT devices.</p>
-                </div>
+    <div class="metric-card">
+      <h3>Real-World Development</h3>
+      <p>Features are developed using feedback gathered directly from businesses.</p>
+    </div>
 
-                <div >
-                    <h3>Campus Suite</h3>
-                    <p>Student utility platform providing boarding search, printing, events, and club management.</p>
-                </div>
+    <div class="metric-card">
+      <h3>Growing Platform</h3>
+      <p>Continuously expanding with new modules and industry-focused solutions.</p>
+    </div>
 
-                <div>
-                    <h3>Orphanage Support Platform</h3>
-                    <p>Connecting volunteers, managing donations, and providing educational resources online.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    
-    <section class="staff">
-        <div class="founder"></div>
-    </section>
-    
-    
-    
-    
+  </div>
 
+</section>
+
+<!-- Solutions Grid Section -->
+
+<section id="features" class="features">
+
+  <div class="container">
+
+    <div class="section-header">
+
+      <h2>Everything You Need to Manage Your Business</h2>
+
+      <p>
+        CoopLink brings together the essential tools businesses need to stay organized, improve efficiency, and serve customers better.
+      </p>
+
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature-card">
+
+        <div class="icon-wrapper"></div>
+
+        <h3>Product & Inventory Management</h3>
+
+        <p>
+          Organize products, monitor inventory levels, and keep stock information accurate and up to date.
+        </p>
+
+      </div>
+
+      <div class="feature-card">
+
+        <div class="icon-wrapper"></div>
+
+        <h3>Order & Customer Management</h3>
+
+        <p>
+          Manage customer orders, monitor order progress, and provide customers with a simple online ordering experience.
+        </p>
+
+      </div>
+
+      <div class="feature-card">
+
+        <div class="icon-wrapper"></div>
+
+        <h3>Projects, Resources & Reports</h3>
+
+        <p>
+          Organize projects, manage business resources, store important documents, and access reports to support better decision-making.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section> 
     <!-- Footer -->
     <footer>
          <div class="social">
     <h3>Follow Us</h3>
-    <a href="https://facebook.com" target="_blank">Facebook</a> |
-    <a href="https://twitter.com" target="_blank">Twitter</a> |
+    <a href="https://web.facebook.com/profile.php?id=61590725591582" target="_blank" rel="noopener noreferrer">Facebook</a> |
     <a href="https://instagram.com" target="_blank">Instagram</a>
   </div>
 
   <div class="inquiries">
     <h3>Inquiries</h3>
-    <p>Email: <a href="mailto:support@cooplink.com">support@cooplink.com</a></p>
+    <p>Email: <a href="mailto:cooplinkhub@gmail.com">cooplinkhub@gmail.com</a></p>
     <p>Phone: +260 123 456 789</p>
   </div>
         <p>Powered by <strong>CoopLink</strong></p>

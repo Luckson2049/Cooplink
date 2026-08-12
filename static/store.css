@@ -1,0 +1,621 @@
+/* Dashboard System Tokens */
+:root {
+  --sidebar-width: 260px;
+  --topbar-height: 70px;
+  --primary-accent: #6366f1;
+  --primary-dark: #4f46e5;
+  --bg-app: #f8fafc;
+  --bg-sidebar: #0f172a;
+  --bg-panel: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-subtle: #e2e8f0;
+  
+  /* Status Color Engine */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #0ea5e9;
+
+  --radius-panel: 12px;
+  --radius-element: 8px;
+  --transition-smooth: all 0.2s ease-in-out;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Structural Engine Elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  min-height: 100vh;
+}
+
+.sidebar{
+    background-color: var(--bg-sidebar);
+    color:#f8fafc;
+    padding:24px 16px;
+    display:flex;
+    flex-direction:column;
+    transition:0.3s ease;
+    z-index:1000;
+}
+
+.brand{
+    padding-bottom:24px;
+    border-bottom:1px solid #1e293b;
+    margin-bottom:24px;
+}
+
+.brand h2{
+    font-size:20px;
+    letter-spacing:-0.5px;
+}
+
+.brand h2 span{
+    color:var(--primary-accent);
+}
+
+.role-badge{
+    display:inline-block;
+    font-size:11px;
+    background:#1e293b;
+    color:#94a3b8;
+    padding:2px 8px;
+    border-radius:4px;
+    margin-top:6px;
+    font-weight:500;
+}
+
+.menu-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:#475569;
+    margin:20px 0 8px 8px;
+    font-weight:700;
+}
+
+.sidebar-menu{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.menu-item{
+    padding:12px;
+    color:#94a3b8;
+    text-decoration:none;
+    border-radius:8px;
+    transition:.3s;
+}
+
+.menu-item:hover{
+    background:#1e293b;
+    color:white;
+}
+
+.menu-item.active{
+    background:var(--primary-accent);
+    color:white;
+}
+
+.menu-item {
+  color: #94a3b8;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: var(--radius-element);
+  font-size: 14px;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+}
+
+.menu-item:hover, .menu-item.active {
+  color: #ffffff;
+  background-color: #1e293b;
+}
+
+.menu-item.active {
+  background-color: var(--primary-accent);
+}
+
+/* 2. Primary Workspace Layout */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+
+/* Update your sidebar container to use Flexbox */
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background-color: var(--bg-sidebar);
+  color: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;         /* Activates Flexbox */
+  flex-direction: column; /* Stacks elements vertically */
+  padding: 24px 16px;
+  z-index: 1000;
+}
+
+/* Push the button to the absolute bottom of the container */
+.store-button {
+  margin-top: auto;      /* Pushes everything below it to the bottom */
+  padding-top: 24px;     /* Prevents menu links from crowding the button */
+  width: 100%;
+}
+
+/* Style the link directly so the whole button surface is clickable */
+.store-btn-link {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-color: var(--primary); /* Uses your primary accent color */
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Smooth hover and click feedback */
+.store-btn-link:hover {
+  background-color: #4338ca; /* Slightly darker shade for hover hover state */
+}
+
+.store-btn-link:active {
+  transform: scale(0.98);    /* Subtle compression effect when clicked */
+}
+
+
+
+/* Viewport Body Wrapper */
+.viewport-body {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Notification & Alert Components */
+.alert-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: var(--radius-panel);
+  font-size: 14px;
+}
+
+.alert-banner.warning {
+  background-color: #fef3c7;
+  border: 1px solid #fde68a;
+  color: #92400e;
+}
+
+.alert-text {
+  flex: 1;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.btn-warn {
+  background-color: #fff;
+  border-color: #f59e0b;
+  color: #b45309;
+}
+
+/* Operational Metrics Grid */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.kpi-card {
+  background-color: var(--bg-panel);
+  padding: 24px;
+  border-radius: var(--radius-panel);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+
+.kpi-title {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 8px 0;
+  letter-spacing: -0.5px;
+}
+
+.kpi-trend.up { color: var(--color-success); font-size: 12px; font-weight: 500;}
+.kpi-subtext { color: var(--text-muted); font-size: 12px; }
+
+/* Isolated Horizontal Scroll Engine */
+.scroll-container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap; /* Prevents text from force-wrapping inside rows */
+  -webkit-overflow-scrolling: touch; /* Fast inertia touch velocity swipe on iOS */
+  padding-bottom: 8px; /* Extra breathing space for scrollbars if visible */
+}
+
+/* Ensure the child structures inside scroll containers preserve desktop width minimums */
+.scroll-container table,
+.scroll-container .order-list {
+  min-width: 600px; /* Forces row elements to maintain a clear readable horizontal span on phones */
+  display: table;
+}
+
+.scroll-container .order-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* TABLE LAYOUT */
+table td,
+table th {
+    padding: 10px 20px;
+}
+
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.order-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Responsive Adaptive Viewports Breakpoints */
+@media (max-width: 968px) {
+  /* Collapse the side-by-side columns into a clean stacked grid vertical profile */
+  .workspace-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+
+/* Module Layout: Order Tracking Row UI */
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.order-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px;
+  background-color: var(--bg-app);
+  border-radius: var(--radius-element);
+  border: 1px solid var(--border-subtle);
+}
+
+.order-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.order-id {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.order-customer {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.order-product-preview {
+  font-size: 13px;
+  color: var(--text-main);
+}
+
+/* Status Badges Styling Grid */
+.status-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.status-processing { background-color: #e0f2fe; color: #0369a1; }
+.status-shipped { background-color: #e0e7ff; color: #4338ca; }
+.status-delivered { background-color: #d1fae5; color: #065f46; }
+
+/* Module Layout: Product Miniature Image Catalog Grid */
+.catalog-mini-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.catalog-item {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.item-img-placeholder {
+  width: 64px;
+  height: 64px;
+  background-color: #f1f5f9;
+  border-radius: var(--radius-element);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  border: 1px solid var(--border-subtle);
+}
+
+.item-img-placeholder span {
+  font-size: 9px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.item-details h4 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.sku {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 2px 0 4px 0;
+}
+
+.stock-status {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.stock-status.low { color: var(--color-danger); }
+.stock-status.in-stock { color: var(--color-success); }
+
+/* Responsive Adapter Overrides */
+@media (max-width: 1100px) {
+  .workspace-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    display: none; /* In production, swap out to a sliding drawer menu */
+  }
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* --- Base Layout System --- */
+:root {
+  --bg-sidebar: #0f172a;
+  --bg-main: #f8fafc;
+  --primary: #4f46e5;
+  --text-light: #94a3b8;
+  --sidebar-width: 260px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-main);
+}
+
+.app-shell {
+  display: flex;
+}
+
+/* --- Control Mechanics Hidden Setup --- */
+.nav-toggle-checkbox { display: none; }
+.mobile-navbar, .sidebar-overlay { display: none; }
+
+/* --- Sidebar Desktop Layout --- */
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background-color: var(--bg-sidebar);
+  color: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  overflow-y: auto;
+}
+
+.brand h2 { font-size: 1.5rem; margin-bottom: 4px; }
+.brand h2 span { color: var(--primary); }
+.role-badge { font-size: 11px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; }
+
+.sidebar-menu { margin-top: 32px; display: flex; flex-direction: column; gap: 4px; }
+.menu-label { font-size: 11px; font-weight: 600; color: #475569; text-transform: uppercase; margin: 16px 0 8px 8px; letter-spacing: 0.5px; }
+
+.menu-item {
+  display: block;
+  padding: 10px 12px;
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+.menu-item:hover, .menu-item.active {
+  background-color: #1e293b;
+  color: #ffffff;
+}
+.menu-item.active { border-left: 3px solid var(--primary); }
+
+/* --- Desktop Workspace Spacer --- */
+.main-content {
+  margin-left: var(--sidebar-width);
+  padding: 40px;
+  width: 100%;
+}
+
+/* =======================================================
+   RESPONSIVE MOBILE STYLES (Screen widths below 992px)
+   ======================================================= */
+@media (max-width: 992px) {
+  /* Shift main workspace content full-width & clear the mobile topbar */
+  .main-content {
+    margin-left: 0;
+    padding: 84px 20px 20px 20px; 
+  }
+
+  /* Show fixed mobile topbar header */
+  .mobile-navbar {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 60px;
+    background-color: var(--bg-sidebar);
+    color: #ffffff;
+    padding: 0 16px;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .hamburger-btn { cursor: pointer; padding: 4px; display: flex; align-items: center; }
+  .mobile-logo { font-size: 1.25rem; font-weight: 700; margin-left: 16px; }
+  .mobile-logo span { color: var(--primary); }
+
+  /* Push sidebar completely out of the viewport view frame box border edge */
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+  }
+
+  /* INTERACTION ACTION TRIPPED STATE: When checkbox clicked -> Slide out sidebar */
+  .nav-toggle-checkbox:checked ~ .sidebar {
+    transform: translateX(0);
+  }
+
+  /* Dark Overlay appears on mobile only when menu checkbox is checked */
+  .nav-toggle-checkbox:checked ~ .sidebar-overlay {
+    display: block;
+    position: fixed;
+    top: 0; bottom: 0; left: 0; right: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+  }
+}
+
+/* CAUTION ALERT MESSAGE */
+.caution {
+    color: #b91c1c; /* Red color for caution */
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+
+/* logout button */
+.logout {
+    /* 1. CRUCIAL FIXES: Stops parent Flexbox or Grid containers from stretching the link */
+    align-self: flex-start;
+    justify-self: start;
+    display: inline-block;
+    width: fit-content; /* Forces the width to exactly match the text length */
+
+    /* Your original styles */
+    background-color: red;
+    color: white;
+    padding: 8px 16px;
+    border-radius: var(--radius-element);
+    text-decoration: none;
+    font-size: 14px;
+    transition: var(--transition-smooth);
+    margin: 5px;
+}
+
+
+/* Interactive Hover state */
+.logout:hover {
+    background-color: #b91c1c; /* Darker red */
+}
+
+
+/* Footer */
+footer {
+    background-color: #1a2a6c;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    border-top: 3px solid #f0c808; /* accent line */
+}
+
+footer p {
+    margin: 0.3rem 0;
+}
+
+footer strong {
+    color: #f0c808; /* gold highlight for CoopLink */
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}

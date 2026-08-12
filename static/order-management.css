@@ -1,0 +1,636 @@
+/* Isolated Order Management System Color Variable Tokens Layout System Blueprint */
+:root {
+  --sidebar-width: 280px;
+  --topbar-height: 70px;
+  --bg-workspace: #f8fafc;
+  --bg-sidebar-node: #0f172a;
+  --bg-surface-panel: #ffffff;
+  --text-primary: #1e293b;
+  --text-muted: #64748b;
+  --border-line: #e2e8f0;
+
+  /* Primary Theme Accent System Elements */
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  
+  /* Strict Dynamic State Colors Engine */
+  --state-processing: #3b82f6;
+  --state-processing-bg: #eff6ff;
+  --state-ready: #10b981;
+  --state-ready-bg: #ecfdf5;
+  --state-transit: #8b5cf6;
+  --state-transit-bg: #f5f3ff;
+  --state-flagged: #ef4444;
+  --state-flagged-bg: #fef2f2;
+
+  --radius-panel: 12px;
+  --radius-element: 8px;
+  --transition: all 0.2s ease-in-out;
+  --shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+}
+
+/* Base Level Setup Override Mechanics */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-workspace);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+/* Master Grid Framework Shell Node Layout */
+.app-shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  min-height: 100vh;
+}
+
+/* Left Workspace Controller Sidebar Structure */
+.sidebar {
+  background-color: var(--bg-sidebar-node);
+  color: #f8fafc;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  padding-bottom: 24px;
+  border-bottom: 1px solid #1e293b;
+  margin-bottom: 24px;
+}
+
+.brand h2 span {
+  color: var(--accent);
+}
+
+.role-badge {
+  display: inline-block;
+  font-size: 11px;
+  background-color: #1e293b;
+  color: #94a3b8;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.menu-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #475569;
+  margin: 20px 0 8px 8px;
+  font-weight: 700;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menu-item {
+  color: #94a3b8;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: var(--radius-element);
+  font-size: 14px;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.menu-item.active {
+  background-color: var(--accent);
+  color: #ffffff;
+}
+
+.menu-item.sibling:hover {
+  background-color: #1e293b;
+  color: #ffffff;
+}
+
+/* Main Workspace Framework Panel Display Stream */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Persistent Action Header Controls Bar styling */
+.top-bar {
+  height: var(--topbar-height);
+  background-color: var(--bg-surface-panel);
+  border-bottom: 1px solid var(--border-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: #f1f5f9;
+  padding: 10px 16px;
+  border-radius: var(--radius-element);
+  width: 100%;
+  max-width: 460px;
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  margin-left: 10px;
+  width: 100%;
+  font-size: 14px;
+}
+
+.top-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Unified Buttons Engine UI Component */
+.btn {
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: var(--radius-element);
+  border: 1px solid var(--border-line);
+  background: var(--bg-surface-panel);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+}
+
+.btn-filter:hover {
+  background-color: #f1f5f9;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.btn-outline {
+  border-color: var(--border-line);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background-color: #f8fafc;
+  border-color: var(--text-muted);
+}
+
+.btn-outline.active {
+  background-color: var(--text-primary);
+  color: white;
+  border-color: var(--text-primary);
+}
+
+.btn-alert {
+  color: var(--state-flagged);
+  border-color: #fca5a5;
+}
+
+.btn-alert:hover {
+  background-color: var(--state-flagged-bg);
+  border-color: var(--state-flagged);
+}
+
+/* Viewport Internal Spacing Content blocks */
+.viewport-body {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.view-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.view-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* Live Operational Tracking Subgrid Metrics */
+.pipeline-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.metric-card {
+  background-color: var(--bg-surface-panel);
+  padding: 20px;
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--border-line);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-value {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+/* Metric Borders Color Engine */
+.border-processing { border-left-color: var(--state-processing); }
+.border-ready { border-left-color: var(--state-ready); }
+.border-transit { border-left-color: var(--state-transit); }
+.border-flagged { border-left-color: var(--state-flagged); }
+
+.color-processing { color: var(--state-processing); }
+.color-ready { color: var(--state-ready); }
+.color-transit { color: var(--state-transit); }
+.color-flagged { color: var(--state-flagged); }
+
+/* Master Orders View Panel Elements */
+.panel {
+  background-color: var(--bg-surface-panel);
+  border-radius: var(--radius-panel);
+  border: 1px solid var(--border-line);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.table-toolbar {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-line);
+  background-color: #fafafa;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: var(--radius-element);
+  transition: var(--transition);
+}
+
+.tab:hover, .tab.active {
+  color: var(--text-primary);
+  background-color: #f1f5f9;
+}
+
+.tab.active {
+  font-weight: 600;
+}
+
+/* Data Table Component Engine styling structure */
+.data-table {
+  background: var(--bg-surface-panel);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    overflow-x: auto;
+}
+
+.data-table th {
+  background-color: #f8fafc;
+  padding: 14px 24px;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border-line);
+}
+
+.data-table td {
+  padding: 0.8rem;
+  text-align: left;
+    border-bottom: 1px solid var(--border-line);
+}
+
+.data-table tbody tr:hover {
+  background-color: #fafcff;
+}
+
+/* Custom In-Cell Content Node Clusters */
+.order-id {
+  display: block;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.timestamp {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.customer-info strong {
+  display: block;
+  color: var(--text-primary);
+  min-width: 150px;
+}
+
+.customer-info .email {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.manifest-cell {
+  font-size: 13px;
+  max-width: 320px;
+  color: var(--text-primary);
+}
+
+.manifest-cell .add-on {
+  display: block;
+  font-size: 12px;
+  color: var(--accent);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.price-value {
+  font-family: monospace;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+
+/* Dynamic State Status Pills Engine */
+.status-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.status-processing { background-color: var(--state-processing-bg); color: var(--state-processing); }
+.status-ready { background-color: var(--state-ready-bg); color: var(--state-ready); }
+.status-transit { background-color: var(--state-transit-bg); color: var(--state-transit); }
+.status-flagged { background-color: var(--state-flagged-bg); color: var(--state-flagged); }
+
+.action-cell {
+  display: flex;
+  gap: 8px;
+}
+
+/* Data Table Pagination Footer Controls Layout Section */
+.table-footer {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8fafc;
+  border-top: 1px solid var(--border-line);
+}
+
+.footer-count {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.pagination-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.data-table {
+    width: 100%;
+    min-width: 1100px; /* Adjust as needed */
+    border-collapse: collapse;
+}
+
+.action-cell select {
+    width: 100%;
+    min-width: 150px;
+}
+
+.action-cell {
+    min-width: 180px;
+}
+
+/* ==========================
+   RESPONSIVE SYSTEM
+========================== */
+
+@media (min-width: 1600px) {
+
+  .viewport-body {
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+}
+
+@media (max-width: 1200px) {
+
+  .pipeline-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .viewport-body {
+    padding: 24px;
+  }
+
+}
+
+@media (max-width: 992px) {
+
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .pipeline-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .viewport-body {
+    padding: 20px;
+  }
+
+  .top-bar {
+    padding: 0 20px;
+  }
+
+  .search-box {
+    max-width: 100%;
+  }
+
+  .filter-tabs {
+    flex-wrap: wrap;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .pipeline-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .search-box {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .top-actions {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .top-actions .btn {
+    flex: 1;
+  }
+
+  .viewport-body {
+    padding: 16px;
+  }
+
+  .table-footer {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .action-cell {
+    flex-wrap: wrap;
+  }
+
+}
+
+@media (max-width: 576px) {
+
+  .viewport-body {
+    padding: 12px;
+    gap: 16px;
+  }
+
+  .metric-card {
+    padding: 16px;
+  }
+
+  .card-value {
+    font-size: 24px;
+  }
+
+  .view-header h2 {
+    font-size: 20px;
+  }
+
+  .filter-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .tab {
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .data-table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .data-table table {
+    min-width: 700px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+}
+
+@media (max-width: 360px) {
+
+  .card-value {
+    font-size: 20px;
+  }
+
+  .view-header h2 {
+    font-size: 18px;
+  }
+
+  .filter-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .top-actions {
+    flex-direction: column;
+  }
+
+}

@@ -1,0 +1,329 @@
+/* Isolated Order Placed Success View System Tokens Architecture */
+:root {
+  --bg-viewport-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-subtle: #f1f5f9;
+  
+  /* Accent Brand Tokens */
+  --primary-brand: #6366f1;
+  --primary-brand-hover: #4f46e5;
+  --success-emerald: #10b981;
+  --success-emerald-bg: #ecfdf5;
+
+  --radius-card: 20px;
+  --radius-panel: 12px;
+  --radius-element: 8px;
+  --shadow-elevation: 0 20px 25px -5px rgba(15, 23, 42, 0.05), 0 10px 10px -5px rgba(15, 23, 42, 0.03);
+  --transition-fluid: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Document Overrides setup rules */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-viewport-gradient);
+  color: var(--text-main);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Master Layout Alignment Engine */
+.success-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* Main Presentation Confirmation Surface block */
+.success-card {
+  background-color: var(--bg-card);
+  width: 100%;
+  max-width: 640px;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-elevation);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* Heading Ring Animations Styling elements */
+.success-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.animated-icon-ring {
+  width: 64px;
+  height: 64px;
+  background-color: var(--success-emerald-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.check-mark {
+  color: var(--success-emerald);
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.badge-success {
+  background-color: var(--success-emerald-bg);
+  color: var(--success-emerald);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+.success-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 10px;
+}
+
+.sub-greeting {
+  font-size: 15px;
+  color: var(--text-muted);
+  max-width: 480px;
+}
+
+/* Tracking Reference Split Block Strip */
+.meta-data-strip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-panel);
+  background-color: #fafafa;
+}
+
+.meta-block {
+  padding: 16px;
+  text-align: center;
+}
+
+.meta-block:first-child {
+  border-right: 1px solid #e2e8f0;
+}
+
+.meta-label {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.meta-value {
+  font-size: 15px;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* Purchase Breakdown Lists Nodes */
+.manifest-segment h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.item-summary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.summary-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.item-visual-preview {
+  width: 48px;
+  height: 48px;
+  background-color: var(--border-subtle);
+  border-radius: var(--radius-element);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.item-core-details {
+  flex: 1;
+}
+
+.item-core-details h4 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.item-variant-spec {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.item-quantity {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.item-line-total {
+  font-family: monospace;
+  font-size: 14px;
+  width: 70px;
+  text-align: right;
+}
+
+/* Totals Sheet Accounting Blocks Elements */
+.financials-ledger {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ledger-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.shipping-free {
+  color: var(--success-emerald);
+  font-weight: 600;
+}
+
+.divider {
+  border: none;
+  border-top: 1px dashed #cbd5e1;
+  margin: 6px 0;
+}
+
+.total-highlight {
+  font-size: 16px;
+  color: var(--text-main);
+}
+
+/* Shipping Information Address Panels Split */
+.logistics-panel {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.logistics-card h4 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.logistics-card address {
+  font-style: normal;
+  font-size: 14px;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.logistics-card p {
+  font-size: 14px;
+}
+
+.logistics-notif {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Button Navigation Workspace Call Actions components */
+.success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  border-radius: var(--radius-element);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-fluid);
+  width: 100%;
+}
+
+.btn-primary-action {
+  background-color: var(--primary-brand);
+  color: white;
+  border: none;
+}
+
+.btn-primary-action:hover {
+  background-color: var(--primary-brand-hover);
+}
+
+.btn-secondary-action {
+  background-color: transparent;
+  color: var(--text-main);
+  border: 1px solid #cbd5e1;
+}
+
+.btn-secondary-action:hover {
+  background-color: #f8fafc;
+}
+
+/* Responsive Adaptive Adjustments Media Breakpoints */
+@media (max-width: 600px) {
+  .success-card {
+    padding: 24px;
+    gap: 28px;
+  }
+  .meta-data-strip, 
+  .logistics-panel {
+    grid-template-columns: 1fr;
+  }
+  .meta-block:first-child {
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .summary-row {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .item-line-total {
+    width: 100%;
+    text-align: left;
+    margin-left: 64px;
+    margin-top: -8px;
+  }
+}

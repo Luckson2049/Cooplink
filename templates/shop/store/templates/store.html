@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store</title>
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='store.css') }}">
+</head>
+<body>
+
+  <div class="app-shell">
+  <!-- Hidden Checkbox Toggle Control -->
+  <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
+
+  <!-- Mobile Top Bar with Toggle Button -->
+  <header class="mobile-navbar">
+    <label for="nav-toggle" class="hamburger-btn">
+      <svg xmlns="http://w3.org" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </label>
+    <div class="mobile-logo">Store<span>.</span></div>
+  </header>
+
+  <!-- Tap-to-Close Dim Overlay for Mobile -->
+  <label for="nav-toggle" class="sidebar-overlay"></label>
+
+  <!-- Sidebar Component -->
+  <aside class="sidebar">
+    <div class="brand">
+      <h2>Store<span>.</span></h2>
+      
+      <span class="role-badge">Admin Workspace</span>
+    </div>
+      <nav class="sidebar-menu">
+        <p class="menu-label">Administrative Dashboards</p>
+        <a href="overview.html" class="menu-item active"> Overview Hub</a>
+        <a href="{{ url_for('user_management') }}" class="menu-item"> User Management</a>
+        <a href="{{ url_for('access') }}" class="menu-item"> Access Control</a>
+        <a href="{{ url_for('resources') }}" class="menu-item"> Resource Management</a>
+
+        <p class="menu-label">Boutique Operations</p>
+        <a href="{{ url_for('inventory') }}" class="menu-item"> Inventory & Stock</a>
+        <a href="{{ url_for('order_management') }}" class="menu-item"> Order Management</a>
+        <a href="{{ url_for('sales') }}" class="menu-item"> Sales & Receipts</a>
+        <a href="{{ url_for('records') }}" class="menu-item"> Customer Records</a>
+        <a href="{{ url_for('reports') }}" class="menu-item"> Basic Reports</a>
+        <!-- Store Catalog Button -->
+      <div class="store-button">
+        <a href="{{ url_for('store_site') }}" class="store-btn-link">Catalog</a>
+      </div>
+      </nav>
+      
+    </aside>
+
+    <!-- Main Content Work Area -->
+    <main class="main-content">
+      
+      
+
+      <!-- Dashboard Viewport Content -->
+      <div class="viewport-body">
+         <h1>Welcome, <span>{{ session['username'] }}</span></h1>
+
+        
+        <!-- Alerts & Action Notifications Section -->
+        <div class="alert-banner warning">
+          <span class="alert-icon"></span>
+          <div class="alert-text">
+            <strong>Low Stock Alert:</strong> 4 premium catalog items are dropping below minimum thresholds.
+          </div>
+          <button class="btn btn-sm btn-warn">Review Inventory</button>
+        </div>
+
+        <!-- Metric KPI Cards (Sales Recording & Overview) -->
+        <section class="kpi-grid">
+          <div class="kpi-card">
+            <span class="kpi-title">Today's Sales Gross</span>
+            <div class="kpi-value">K0.00</div>
+            <span class="kpi-trend up">↑ 0.0% yesterday</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-title">Active Orders Tracking</span>
+            <div class="kpi-value">{{ todays_orders }}</div>
+            <span class="kpi-subtext"></span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-title">Pending</span>
+            <div class="kpi-value">{{ pending_count }}</div>
+            <span class="kpi-subtext"></span>
+          </div>
+        </section>
+
+        <!-- Twin Columns Workspace Split Layout -->
+        <div class="workspace-grid">
+          
+          <!-- Column A: Order Management & Tracking -->
+          <div class="panel">
+            {% for order in orders %}
+            <div class="panel-header">
+              <h3>Live Order Tracking</h3>
+              <a href="#" class="panel-link">View All Orders</a>
+            </div>
+            <div class="scroll-container">
+              <div class="order-list">
+                <!-- Order Entry -->
+                <div class="order-row">
+                  <div class="order-meta">
+                    <span class="order-id">{{ order.id }}</span>
+                    <span class="order-customer">Elena Rostova</span>
+                  </div>
+                  <div class="order-product-preview">{{ order.name }}</div>
+                  <div class="status-pill status-processing">{{ order.status  }}</div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            
+            <div class="panel1">
+              <!-- Panel Header Configuration -->
+               <div class="panel-header1">
+                <h3>Completed Orders</h3>
+                <a href="#" class="panel-link1">View All Orders &rarr;</a>
+              </div>
+              <div class="scroll-container1">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Item</th>
+                      <th>Phone number</th>
+                      <th>Quantity</th>
+                      <th>Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if completed_orders %}
+                    {% for order in completed_orders %}
+                    <tr>
+                      <td>{{ order.id }}</td>
+                      <td>{{ order.product_name }}</td>
+                      <td>{{ order.phone_number }}</td>
+                      <td>{{ order.quantity }}</td>
+                      <td>{{ order.created_at }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                      <td colspan="5" class="caution">No completed orders available.</td>
+                    </tr>
+                    {% endif %}
+                  </tbody>
+                </table>
+              </div>
+              
+               <!-- Panel Header Configuration -->
+               <div class="panel-header1">
+                <h3>Pending Orders</h3>
+                <a href="#" class="panel-link1">View All Orders &rarr;</a>
+              </div>
+              <div class="scroll-container1">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Item</th>
+                      <th>Phone number</th>
+                      <th>Quantity</th>
+                      <th>Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if pending_orders %}
+                    {% for order in pending_orders %}
+                    <tr>
+                      <td>{{ order.id }}</td>
+                      <td>{{ order.product_name }}</td>
+                      <td>{{ order.phone_number }}</td>
+                      <td>{{ order.quantity }}</td>
+                      <td>{{ order.created_at }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                      <td colspan="5" class="caution">No pending orders available.</td>
+                    </tr>
+                    {% endif %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            </div>
+          </div>
+        </section>
+        <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+</main>
+
+</div>
+
+<!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+
+      <div>
+        <h3>STORE</h3>
+        <p>Downtown Mall</p>
+        <p>City Market</p>
+        <p>Carousel Shopping Mall</p>
+        <p>Regional Trade Village</p>
+      </div>
+
+      <div>
+        <h3>Contact</h3>
+        <p>Email: <a href="mailto:support@store.com">support@store.com</a></p>
+        <p>Phone: +260 123 456 789</p>
+      </div>
+
+      <p>Powered by <strong>CoopLink</strong></p>
+
+    </div>
+
+    <p class="copyright">
+
+</body>
+</html>

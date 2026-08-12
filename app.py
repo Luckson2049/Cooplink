@@ -157,7 +157,7 @@ def log_in():
                 elif user_system == "campus suite":
                     return redirect(url_for('campus_suite_dashboard'))
                 elif user_system == "Beilo":
-                    return redirect(url_for('dashboard_BEILO'))
+                    return redirect(url_for('dashboard_store'))
                 else:
                     flash("System not recognized for dashboard access.")
                     return redirect(url_for('log_in'))
@@ -166,6 +166,19 @@ def log_in():
 
     return render_template("auth/multi_login.html")
 #---------------- END LOG IN -----------------
+
+#------------------ COOPLINK ----------------------
+@cooplink.route("/store_site")
+def store_site():
+    db=get_db()
+    cursor = db.cursor()
+
+    cursor.execute("SELECT * FROM beilo_products ORDER BY id DESC")
+    products = cursor.fetchall()
+    return render_template("stores/store-site.html", products=products)
+
+#------------------ END COOPLINK ----------------------
+
 
 # ----------------- DASHBOARDS -----------------
 @cooplink.route("/dashboard")
@@ -187,13 +200,13 @@ def dashboard_COOPLINK():
 #----------------- END COOPLINK DASHBOARD -----------------
 
 
-#------------------- BEILO ---------------------------
+#------------------- STORE ---------------------------
 
 
-#----------------- BEILO DASHBOARD -----------------
+#----------------- STORE DASHBOARD -----------------
 
-@cooplink.route("/dashboard-BEILO")
-def dashboard_BEILO():
+@cooplink.route("/dashboard-store")
+def dashboard_store():
     if 'user_id' not in session:
         return redirect(url_for('log_in'))
 
@@ -222,15 +235,39 @@ def dashboard_BEILO():
     """ )
     todays_orders = cursor.fetchone()['count'] 
     #---------------- PENDING ORDERS -----------------
+#------------------ COUNTING-PENDING-ORDERS -----------------
     cursor.execute( """
     SELECT COUNT(*) As count
     FROM orders
     WHERE status = 'pending'
     """ )
-    pending_orders = cursor.fetchone()['count']
+    pending_count = cursor.fetchone()['count']
+
+#------------------ END COUNTING-PENDING-ORDERS -----------------
+
+#------------------ DISPLAYING-PENDING-ORDERS -----------------
+    cursor.execute( """ 
+    SELECT * FROM orders
+    WHERE status = 'pending'
+    ORDER BY created_at ASC
+    """,)
+    pending_orders = cursor.fetchall()
+#------------------ END PENDING ORDERS -----------------
 
     
     #------------------ COMPLETED ORDERS -----------------
+
+#------------------ DISPLAYING-COMPLETED-ORDERS -----------------
+    cursor.execute( """ 
+    SELECT * FROM orders
+    WHERE status = 'completed'
+    ORDER BY created_at ASC
+    """,)
+    completed_orders = cursor.fetchall()
+
+#------------------ END COMPLETED ORDERS -----------------
+
+
     if request.method == "POST":
         order_id = request.form.get("order_id")
         if order_id:
@@ -238,11 +275,11 @@ def dashboard_BEILO():
             UPDATE orders
             SET status = 'completed'
             WHERE id = %s
-            """,(order_id,))
+        """,(order_id,))
             db.commit()
 
 
-    return render_template("shop/beilo/templates/beilo.html", orders=orders,todays_orders=todays_orders,pending_orders=pending_orders)
+    return render_template("shop/store/templates/store.html", orders=orders,todays_orders=todays_orders,pending_orders=pending_orders,completed_orders=completed_orders,pending_count=pending_count)
 
 
 #------------------- ORDER CONTROL ----------------
@@ -261,28 +298,17 @@ def complete_order(order_id):
 
 
 
-#----------------- END BEILO DASHBOARD -----------------
+#----------------- END STORE DASHBOARD -----------------
 
 
-#------------------ BEILO_SITE ----------------------
-@cooplink.route("/beilo_site")
-def beilo_site():
-    db=get_db()
-    cursor = db.cursor()
 
-    cursor.execute("SELECT * FROM beilo_products ORDER BY id DESC")
-    products = cursor.fetchall()
-    return render_template("beilo/beilo_site.html", products=products)
-
-#------------------ END BEILO_SITE ----------------------
-
-#----------------- BEILO PRODUCT MANAGEMENT -----------------
+#----------------- STORE PRODUCT MANAGEMENT -----------------
 
 
 #----------------- IMAGE UPLOAD -----------------
 #----------------- IMAGE UPLOAD / PRODUCT MANAGEMENT -----------------
-@cooplink.route("/beilo_product_management", methods=["GET", "POST"])
-def beilo_product_management():
+@cooplink.route("/inventory", methods=["GET", "POST"])
+def inventory():
     if 'user_id' not in session:
         return redirect(url_for('log_in'))
     
@@ -291,7 +317,6 @@ def beilo_product_management():
 
     if request.method == "POST":
         try:
-            print("Received POST request for product management")
             # --- get form data ---
             name = request.form["name"]
             category = request.form["category"]
@@ -318,18 +343,17 @@ def beilo_product_management():
             """, (name, category, price, stock, branch, image_filename))
 
             db.commit()
-            print("Product added successfully:")
 
         except Exception as e:
             print("An err occured while trying to access the Database, please try again later!:", e)
             db.rollback()
 
-        return redirect(url_for('beilo_product_management'))
+        return redirect(url_for('inventory'))
 
         #---------------GET REQUEST-------------------
     cursor.execute("SELECT * FROM beilo_products")
     products = cursor.fetchall()
-    return render_template("shop/beilo/templates/product_management.html", products=products)
+    return render_template("shop/store/templates/features/inventory.html", products=products)
 
 
 #----------------- ALLOWED IMAGE FORMATS -----------------
@@ -354,13 +378,13 @@ def delete(id):
 
     db.close()
 
-    return redirect(url_for('beilo_product_management'))
+    return redirect(url_for('inventory'))
 
 
-#------------------ END BEILO PRODUCT MANAGEMENT -----------------
+#------------------ END STORE PRODUCT MANAGEMENT -----------------
 
 
-#------------------ BEILO_BUY_REQUEST -----------------------
+#------------------ STORE_BUY_REQUEST -----------------------
 
 @cooplink.route("/buy/<int:id>", methods=["GET", "POST"])
 def buy_product(id):
@@ -377,7 +401,7 @@ def buy_product(id):
     if request.method == "POST":
         phone = request.form["phone_number"]
         quantity = int(request.form["quantity"])
-        name = product
+        
         
 
 #------------------ SAVING ORDER --------------------
@@ -385,24 +409,51 @@ def buy_product(id):
         
 
         db.commit()
-        name = cursor.execute("SELECT * FROM beilo_products")
-        products = cursor.fetchall()
-        return "Order placed successfully!"
+        
+    return render_template("shop/store/templates/features/request_buy.html", product=product)
+#------------------ END SAVING ORDER --------------------
 
-    return render_template("shop/beilo/templates/request_buy.html", product=product)
+#------------------ FEATURES -----------------------
+@cooplink.route("/users")
+def user_management():
+    return render_template("shop/store/templates/features/users.html")
+
+@cooplink.route("/access control")
+def access():
+    return render_template("shop/store/templates/features/acess.html")
+
+@cooplink.route("/resources")
+def resources():
+    return render_template("shop/store/templates/features/resources.html")
+
+@cooplink.route("/orders")
+def order_management():
+    return render_template("shop/store/templates/features/order_management.html")
+
+@cooplink.route("/sales")
+def sales():
+    return render_template("shop/store/templates/features/sales.html")
+
+@cooplink.route("/records")
+def records():
+    return render_template("shop/store/templates/features/records.html")
+
+@cooplink.route("/reports")
+def reports():
+    return render_template("shop/store/templates/features/reports.html")
 
 
 
 @cooplink.route("/successfull_order")
 def successfull_order():
-    return render_template("shop/beilo/order_confirm.html")
+    return redirect(url_for('store_site'))
 
-#------------------ END BEILO BUY REQUEST ---------------------
-
-
+#------------------ END STORE BUY REQUEST ---------------------
 
 
-#----------------- BEILO END ------------------------
+
+
+#----------------- STORE END ------------------------
 
 
 
@@ -429,4 +480,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    cooplink.run(host="0.0.0.0", port=int(os.environ.get("PORT",5000)))
+    cooplink.run(host="0.0.0.0", debug=True, port=int(os.environ.get("PORT",5000)))

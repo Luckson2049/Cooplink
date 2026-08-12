@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Multi-System Login | Tech Hub</title>
+  <title>Make Order</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='buy.css') }}">
 </head>
 
@@ -24,19 +24,19 @@
     <label>Quantity:</label>
     <input type="number" name="quantity" min="1" max="{{ product.stock }}" required>
 
-    <br><br>
+   
 
     <label>Phone Number:</label>
     <input type="text" name="phone_number" required>
 
-    <br><br>
+   
 
-    <button type="submit">Place Order</button>
+    <button type="submit"><a href="{{ url_for('successfull_order')}}">Buy Now</a></button>
 
 
     
 <p class="copyright">
-      <p>Powered by <strong>CoopLink</strong></p>
+      <p>Powered by <strong>CoopLink hub</strong></p>
       &copy; 2026 BEILO. All rights reserved.
     </p>
 

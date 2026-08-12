@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STORE</title>
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/order-management.css">
+</head>
+<body>
+
+  <div class="app-shell">
+    <!-- Persistent Navigation Module Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <h2>STORE<span>.</span></h2>
+        <span class="role-badge"></span>
+      </div>
+      <nav class="sidebar-menu">
+        <p class="menu-label">System Focal Point</p>
+        <a href="#" class="menu-item active">Order Management</a>
+        <p class="menu-label">Linked Modules</p>
+        <a href="#" class="menu-item sibling">Stock Levels</a>
+        <a href="#" class="menu-item sibling">Product Catalog</a>
+        <a href="#" class="menu-item sibling">Customer Profiles</a>
+      </nav>
+    </aside>
+
+    <!-- Main Workspace Stream Panel Layout -->
+    <main class="main-content">
+        <div class="top-actions">
+          <button class="btn btn-filter"> Date Range</button>
+          <button class="btn btn-primary"> Create Manual Order</button>
+        </div>
+      </header>
+
+      <!-- Internal Layout Viewport Body -->
+      <div class="viewport-body">
+        
+        <!-- View Headers Section -->
+        <div class="view-header">
+          <h2>Order Fulfillment Pipeline</h2>
+          <p>Monitor real-time item workflows, modify carrier parameters, track routing logs, and manage status transitions.</p>
+        </div>
+
+        <!-- Live Metrics Subgrid Pipeline -->
+        <section class="pipeline-metrics">
+          <div class="metric-card border-processing">
+            <span class="card-label">In Processing</span>
+            <div class="card-value color-processing">14</div>
+          </div>
+          <div class="metric-card border-ready">
+            <span class="card-label">Ready for Pickup</span>
+            <div class="card-value color-ready">8</div>
+          </div>
+          <div class="metric-card border-transit">
+            <span class="card-label">In Shipped Transit</span>
+            <div class="card-value color-transit">23</div>
+          </div>
+          <div class="metric-card border-flagged">
+            <span class="card-label">Flagged/Hold</span>
+            <div class="card-value color-flagged">2</div>
+          </div>
+        </section>
+
+        <!-- Main Orders Work Database Grid -->
+        <div class="orders-workspace">
+          <div class="panel">
+            <div class="table-toolbar">
+              <div class="filter-tabs">
+                <button class="tab active">All Master Orders</button>
+                <button class="tab">Pending</button>
+                <button class="tab">Dispatched</button>
+                <button class="tab">Completed</button>
+              </div>
+            </div>
+
+            <!-- Master Data Grid Table Layer -->
+           <div class="table-container"> <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Order Reference</th>
+                  <th>Customer Identity</th>
+                  <th>Purchased Manifest Items</th>
+                  <th>Total Gross Invoiced</th>
+                  <th>Status Workflow</th>
+                  <th>Actions Control</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Row Instance 1 -->
+                <tr>
+                  <td>
+                    {% for order in orders %}
+                    <span class="order-id">{{ order.id }}</span>
+                    <span class="timestamp">{{ order.created_at }}</span>
+                  </td>
+                  <td>
+                    <div class="customer-info">
+                      <strong>{{ customer.customer_name }}</strong>
+                      <span class="email">{{ customer.phone }}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="manifest-cell">
+                      <span>{{ order.name }}</span>
+                    </div>
+                  </td>
+                  <td><strong class="price-value">{{ order.total }}</strong></td>
+                  <td><span class="status-pill status-processing">Processing</span></td>
+                  <td>
+                    {% endfor %}
+                    <div class="action-cell">
+                      <!-- Dropdown Container Component -->
+<div class="dropdown-wrapper">
+<!-- Update Status -->
+      <label for="status">Select Status</label>
+      <select name="status" id="status" required>
+        <option value="">-- Choose a status --</option>
+        <option value="Processing">Mark as Processing</option>
+        <option value="In Shipped Transit">Mark as In Transit</option>
+        <option value="Completed">Mark as Completed</option>
+      </select>
+
+  
+                    </div>
+                </tr>
+
+              
+            <!-- Data Table Pagination Footer Controls Component -->
+            <div class="table-footer">
+              <span class="footer-count">Showing 4 of 47 logged orders</span>
+              <div class="pagination-controls">
+                <button class="btn btn-sm btn-outline" disabled>Previous</button>
+                <button class="btn btn-sm btn-outline active">1</button>
+                <button class="btn btn-sm btn-outline">2</button>
+                <button class="btn btn-sm btn-outline">3</button>
+                <button class="btn btn-sm btn-outline">Next</button>
+              </div>
+            </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

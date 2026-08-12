@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beilo - Order</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='order_success.css') }}">
+</head>
+<body>
+
+  <div class="success-layout">
+    <!-- Main Confirmation Card Node -->
+    <main class="success-card">
+      
+      <!-- Animated Visual Anchor Group -->
+      <header class="success-header">
+        <div class="animated-icon-ring">
+          <div class="check-mark">✓</div>
+        </div>
+        <span class="badge-success">Payment Received</span>
+        <h1>Thank you for your order!</h1>
+        <p class="sub-greeting">Your purchase is confirmed. We are prepping your curated collection items for dispatch assignment right now.</p>
+      </header>
+
+      <!-- Contextual Meta Reference Blocks -->
+      <section class="meta-data-strip">
+        <div class="meta-block">
+          <span class="meta-label">Order Number</span>
+          <strong class="meta-value">#ORD-2026-9810</strong>
+        </div>
+        <div class="meta-block">
+          <span class="meta-label">Est. Delivery</span>
+          <strong class="meta-value">June 25–27, 2026</strong>
+        </div>
+      </section>
+
+      <!-- Order Manifest Breakdown Segment -->
+      <section class="manifest-segment">
+        <h3>Order Summary</h3>
+        <div class="item-summary-list">
+          
+          <!-- Line Item Entity 1 -->
+          <div class="summary-row">
+            <div class="item-visual-preview">👗</div>
+            <div class="item-core-details">
+              <h4>Silk Midi Silhouette</h4>
+              <p class="item-variant-spec">Size: M &bull; Color: Midnight Navy</p>
+            </div>
+            <span class="item-quantity">Qty: 1</span>
+            <strong class="item-line-total">$240.00</strong>
+          </div>
+
+          <!-- Line Item Entity 2 -->
+          <div class="summary-row">
+            <div class="item-visual-preview">🧣</div>
+            <div class="item-core-details">
+              <h4>Cashmere Fringe Scarf</h4>
+              <p class="item-variant-spec">Size: O/S &bull; Color: Heather Gray</p>
+            </div>
+            <span class="item-quantity">Qty: 1</span>
+            <strong class="item-line-total">$75.00</strong>
+          </div>
+
+        </div>
+
+        <!-- Financial Breakdown Node Structure -->
+        <div class="financials-ledger">
+          <div class="ledger-line">
+            <span>Subtotal Value</span>
+            <span>$315.00</span>
+          </div>
+          <div class="ledger-line">
+            <span>Shipping & Logistics</span>
+            <span class="shipping-free">FREE</span>
+          </div>
+          <div class="ledger-line">
+            <span>Sales Tax (8%)</span>
+            <span>$25.20</span>
+          </div>
+          <hr class="divider">
+          <div class="ledger-line total-highlight">
+            <strong>Total Amount Charged</strong>
+            <strong>$340.20</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- Shipping Destination Address Log Card -->
+      <section class="logistics-panel">
+        <div class="logistics-card">
+          <h4>📍 Shipping Address</h4>
+          <address>
+            <strong>Clara Oswald</strong><br>
+            76 Totter's Lane<br>
+            London, E11 1AC<br>
+            United Kingdom
+          </address>
+        </div>
+        <div class="logistics-card">
+          <h4>🚚 Delivery Channel</h4>
+          <p><strong>Express Tracked Courier</strong></p>
+          <p class="logistics-notif">Tracking linkages will arrive via registered email inside the next 12 hours.</p>
+        </div>
+      </section>
+
+      <!-- Action Footer Links Workspace Navigation Controls -->
+      <footer class="success-actions">
+        <a href="#" class="btn btn-primary-action">Track Order Live Status</a>
+        <a href="{{ url_for('beilo_site') }}" class="btn btn-secondary-action">Continue Browsing Store</a>
+      </footer>
+
+    </main>
+  </div>
+
+</body>
+</html>
+
+
+</body>
+
+</html>

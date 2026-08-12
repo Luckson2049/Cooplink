@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BEILO | Inventory</title>
+    <title>STORE | Inventory</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='beilo_product.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='store_product.css') }}">
 </head>
 
 <body>
 
 <header class="admin-header">
-    <h1>BEILO Inventory</h1>
+    <h1>STORE Inventory</h1>
     <p>Stock Management Dashboard</p>
 </header>
 
@@ -20,7 +20,7 @@
     <section class="form-section">
         <h2>Add / Update Product</h2>
 
-        <form action="{{ url_for('beilo_product_management') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ url_for('inventory') }}" method="POST" enctype="multipart/form-data">
 
             <div class="form-group">
                 <label>Product Name</label>
@@ -32,6 +32,8 @@
                 <select name="category">
                     <option>Shirt</option>
                     <option>Shoes</option>
+                    <option>Combo</option>
+                    <option>Pants</option>
                     <option>Suit</option>
                     <option>Accessories</option>
                 </select>
@@ -113,6 +115,12 @@
             </tbody>
 
         </table>
+        <div >
+        <button onclick="window.location.href=`{{ url_for('store_site') }}`" class="btn-primary">
+    Finish
+</button>
+
+      </div>
     </section>
 
 </main>
