@@ -1,5 +1,5 @@
 # Cooplink
-CoopLink is a multi-system web platformdesigned to manage digital workflows across differentdomains.
+CoopLink is a multi-system web platform designed to manage digital workflows across different businesses.
 ## features
 -User authentication system
 -Session management
@@ -8,7 +8,7 @@ CoopLink is a multi-system web platformdesigned to manage digital workflows acro
 
 ## Tech stack
 -Python(flask)
--SQLite
+-PostgreSQl
 -HTML/CSS
 
 ## Status
